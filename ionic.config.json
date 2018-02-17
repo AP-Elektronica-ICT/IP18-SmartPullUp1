@@ -1,6 +1,6 @@
 {
   "name": "SPUB",
-  "app_id": "",
+  "app_id": "7b4e4b9f",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
