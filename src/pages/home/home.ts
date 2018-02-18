@@ -7,6 +7,8 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  public AppName: string = 'Smart Pull-Up Bar';
+
   constructor(public navCtrl: NavController) {
 
   }
