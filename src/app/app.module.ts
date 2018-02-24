@@ -3,21 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { ProgressPage } from '../pages/progress/progress';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthenticationService } from '../services/AuthenticationService';
+import { ExercisePage } from '../pages/exercise/exercise';
+import { ProfilePage } from '../pages/profile/profile';
+import { FriendsPage } from '../pages/friends/friends';
+import { SchedulePage } from '../pages/schedule/schedule';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    ProgressPage,
+    ExercisePage,
+    ProfilePage,
+    FriendsPage,
+    SchedulePage,
     TabsPage
   ],
   imports: [
@@ -27,9 +31,11 @@ import { AuthenticationService } from '../services/AuthenticationService';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    ProgressPage,
+    ExercisePage,
+    ProfilePage,
+    FriendsPage,
+    SchedulePage,
     TabsPage
   ],
   providers: [
