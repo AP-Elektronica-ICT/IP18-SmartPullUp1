@@ -1,7 +1,9 @@
-<ion-navbar>
-  <ion-title>Title</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title>{{ pageTitle }}</ion-title>
 
-  <button ion-button icon-only menuToggle>
-    <ion-icon name="contact"></ion-icon>
-  </button>
-</ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only round (click)="profileClicked()">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Navbar } from 'ionic-angular';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the SpubNavbarComponent component.
@@ -13,11 +12,10 @@ import { Navbar } from 'ionic-angular';
 })
 export class SpubNavbarComponent{
 
-  text: string;
+  @Input () pageTitle;
 
   constructor() {
-    console.log('Hello SpubNavbarComponent Component');
-    this.text = 'Hello World';
+
   }
 
 }
