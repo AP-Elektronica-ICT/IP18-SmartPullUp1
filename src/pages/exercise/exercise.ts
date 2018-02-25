@@ -15,11 +15,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ExercisePage {
 
+  public PageTitle = 'Exercise';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExercisePage');
+  }
+
+  profileClicked() {
+    console.log("Profile clicked!");
   }
 
 }

@@ -13,6 +13,7 @@ import { ExercisePage } from '../pages/exercise/exercise';
 import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
+import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    SpubNavbarComponent,
     TabsPage
   ],
   imports: [
@@ -36,6 +38,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    SpubNavbarComponent,
     TabsPage
   ],
   providers: [
