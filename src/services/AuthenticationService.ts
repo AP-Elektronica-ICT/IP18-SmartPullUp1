@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
 import { AppConfiguration } from '../../appconfiguration';
 
 import Auth0Cordova from '@auth0/cordova';
