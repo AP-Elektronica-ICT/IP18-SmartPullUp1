@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { PopoverController } from 'ionic-angular';
+import { ProfilePopoverPage } from '../../pages/profile-popover/profile-popover';
 
 /**
  * Generated class for the SpubNavbarComponent component.
@@ -14,8 +16,15 @@ export class SpubNavbarComponent{
 
   @Input () pageTitle;
 
-  constructor() {
+  constructor(public popoverCtrl: PopoverController) {
 
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(ProfilePopoverPage);
+    popover.present({
+      ev: event
+    });
   }
 
 }

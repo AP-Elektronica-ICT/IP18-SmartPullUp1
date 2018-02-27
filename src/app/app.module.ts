@@ -14,6 +14,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
+import { ProfilePopoverPage } from '../pages/profile-popover/profile-popover';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    ProfilePopoverPage,
     TabsPage
   ],
   imports: [
@@ -39,6 +41,7 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    ProfilePopoverPage,
     TabsPage
   ],
   providers: [

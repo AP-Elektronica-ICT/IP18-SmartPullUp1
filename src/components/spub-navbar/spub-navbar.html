@@ -1,9 +1,9 @@
-  <ion-toolbar color="dark">
-    <ion-title>{{ pageTitle }}</ion-title>
+  <ion-toolbar>
+    <ion-title color="dark">{{ pageTitle }}</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only round (click)="profileClicked()">
-        <ion-icon name="contact"></ion-icon>
+      <button ion-button icon-only round (click)="presentPopover($event)">
+        <ion-icon name="contact" color="dark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
