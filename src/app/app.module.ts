@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { CalendarModule } from 'ionic3-calendar-en';
 import { MyApp } from './app.component';
 
 import { ProgressPage } from '../pages/progress/progress';
@@ -28,6 +29,7 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
   ],
   imports: [
     BrowserModule,
+    CalendarModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
