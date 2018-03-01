@@ -32,20 +32,7 @@ export class ExercisePage {
   public Clicked() {
 
     this.counter ++;
-   
-    if(this.counter >= 10){
-
-      this.Pullups = "Pull-up game is STRONG!"
-
-
-    }
-    if(this.counter >= 20){
-
-      this.Pullups = "pull-up game is Fucking STRONG as FUCK!"
-
-    }
-
-  
+  }
 }
 
-}
+
