@@ -14,7 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'exercise.html',
 })
 export class ExercisePage {
-
+  counter = 0;
+  Pullups = "pull ups";
   public PageTitle = 'Exercise';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -28,4 +29,10 @@ export class ExercisePage {
     console.log("Profile clicked!");
   }
 
+  public Clicked() {
+
+    this.counter ++;
+  }
 }
+
+
