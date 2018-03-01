@@ -1,5 +1,12 @@
-<ion-list>
-  <ion-list-header>Ionic</ion-list-header>
-  <button ion-item (click)="close()">Learn Ionic</button>
-  <button ion-item (click)="close()">Learn Angular</button>
+<ion-list *ngIf="authenticated; else notAuthenticatedBlock">
+  <ion-list-header>Hello User!</ion-list-header>
+  <button ion-item (click)="viewProfile()">View profile</button>
+  <button ion-item (click)="close()">Logout</button>
 </ion-list>
+
+<ng-template #notAuthenticatedBlock>
+    <ion-list >
+        <ion-list-header>Hello You!</ion-list-header>
+        <button ion-item (click)="close()">Login</button>
+      </ion-list>
+</ng-template>

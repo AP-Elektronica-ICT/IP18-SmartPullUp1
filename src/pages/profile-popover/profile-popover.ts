@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController, NavController } from 'ionic-angular';
+import { AuthenticationService } from '../../services/AuthenticationService';
+import { ProfilePage } from '../profile/profile';
 
 
 /**
@@ -16,12 +18,18 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 })
 export class ProfilePopoverPage {
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  public authenticated = true;
+
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, public auth: AuthenticationService) {
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePopoverPage');
+  }
+
+  viewProfile() {
+
   }
 
   close() {
