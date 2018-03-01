@@ -14,7 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'exercise.html',
 })
 export class ExercisePage {
-
+  counter = 0;
+  Pullups = "pull ups";
   public PageTitle = 'Exercise';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -27,5 +28,24 @@ export class ExercisePage {
   profileClicked() {
     console.log("Profile clicked!");
   }
+
+  public Clicked() {
+
+    this.counter ++;
+   
+    if(this.counter >= 10){
+
+      this.Pullups = "Pull-up game is STRONG!"
+
+
+    }
+    if(this.counter >= 20){
+
+      this.Pullups = "pull-up game is Fucking STRONG as FUCK!"
+
+    }
+
+  
+}
 
 }
