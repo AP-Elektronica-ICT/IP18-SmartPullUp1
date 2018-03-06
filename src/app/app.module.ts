@@ -15,6 +15,8 @@ import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,7 +30,8 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgCircleProgressModule.forRoot({})
   ],
   bootstrap: [IonicApp],
   entryComponents: [

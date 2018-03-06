@@ -6,50 +6,30 @@
 
 <ion-content padding>
 
-  <style>
 
-    .myLabel{
-
-    
-      font-size: 4em;
-    }
-
-    .pullUps{
-      text-align: center;
-    }
-    
-    </style>
-    
-    <ion-header>
-    
-      <ion-navbar>
-        <ion-title>Exercise</ion-title>
-      </ion-navbar>
-    
-    </ion-header>
-    
-    <ion-content padding>
-    
-    
-      <ion-card>
-        <ion-card-content>
-    
-            
-          <ion-label class='myLabel' fixed>{{counter}}</ion-label>
-    
-          </ion-card-content>
+  <ion-card>
+    <ion-card-content>
+   
+      <circle-progress align="center" [percent]="percent" [radius]="75" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'"
+        [innerStrokeColor]="'#C7E596'" [animation]="false" [animationDuration]="300"></circle-progress>
+   
+        <ion-label class='goalLabel' relative>Goal: {{goal}}</ion-label>
+        <ion-label class='timeLabel' relative>time: {{timeStampString}}</ion-label>
       
-          <ion-item>
-            <ion-label class='pullUps' >{{Pullups}}</ion-label>
-          </ion-item>
-        </ion-card>
-      
-    
-    
-        <button ion-button color="dark" (click)="Clicked()">Click</button>
-    
-    
-    </ion-content>
-    
-  
+    </ion-card-content>
+
+
+    <ion-item>
+      <ion-label class='pullUps'>{{pullUps}}</ion-label>
+    </ion-item>
+  </ion-card>
+
+
+  <button ion-button color="dark" (click)="Clicked()">Click</button>
+  <button ion-button color="dark" (click)="TimerClicked()">{{buttState}}</button>
+  <button ion-button color="dark" (click)="Stopped()">Stop</button>
+
+
+
+
 </ion-content>
