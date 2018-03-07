@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BluetoothService } from '../../services/BluetoothService';
+
 
 /**
  * Generated class for the FriendsPage page.
@@ -15,7 +17,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FriendsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public bts: BluetoothService) {
   }
 
   ionViewDidLoad() {
