@@ -13,6 +13,7 @@ import { AlertController } from 'ionic-angular';
 
 
 export class ExercisePage {
+
   percent = 0;
   counter = 0;
   goal = 20;
@@ -23,9 +24,8 @@ export class ExercisePage {
   loop = false;
   public PageTitle = 'Exercise';
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
-
-
   }
 
   ionViewDidLoad() {
@@ -36,18 +36,16 @@ export class ExercisePage {
     console.log("Profile clicked!");
   }
 
-  public Clicked() {  
+  public Clicked() {
     if (this.loop) {
       this.counter++;
-
       this.percent = this.counter/this.goal*100;
       if (this.percent == 100) {
-       this.showAlert();
+        this.showAlert();
+        this.Completed();
       }
     }
   }
-
-
 
   public showAlert() {
     let alert = this.alertCtrl.create({
@@ -59,11 +57,7 @@ export class ExercisePage {
     this.TimerClicked();
   }
 
-
-
-
   public TimerClicked() {
-
     if (this.buttState == "Start") {
       this.buttState = "Pause";
       this.loop = true;
@@ -82,7 +76,6 @@ export class ExercisePage {
         this.Timer();
       }
     }, 100);
-
   }
 
   public Stopped() {
@@ -91,8 +84,7 @@ export class ExercisePage {
     this.timeStamp = 0;
     this.timeStampString = "0";
     this.counter = 0;
-    this.percent = 0; 
-
+    this.percent = 0;
   }
 
   public Completed() {
@@ -100,10 +92,9 @@ export class ExercisePage {
     this.buttState = "Start";
     this.counter = 0;
     this.percent = 0;
-
+    this.timeStamp = 0;
+    this.timeStampString = "0";
   }
 
 
 }
-
-
