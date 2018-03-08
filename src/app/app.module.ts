@@ -16,6 +16,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,10 +27,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
-    TabsPage
+    TabsPage,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     NgCircleProgressModule.forRoot({})
   ],
@@ -45,10 +47,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     TabsPage
   ],
   providers: [
+    HttpClient,
     StatusBar,
     SplashScreen,
     AuthenticationService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

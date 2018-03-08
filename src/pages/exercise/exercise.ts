@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import * as data from '../../../json/pullup.json';
 
 
 
@@ -15,9 +18,9 @@ import { AlertController } from 'ionic-angular';
 export class ExercisePage {
 
   percent = 0;
-  counter = 0;
+  pullUpCounter = 0;
   goal = 20;
-  pullUps = "Pull-Ups";
+  pullUpsLabel = "Pull-Ups";
   timeStamp = 0;
   timeStampString = "0";
   buttState = "Start";
@@ -25,8 +28,13 @@ export class ExercisePage {
   public PageTitle = 'Exercise';
   title = this.counter + "/" + this.goal;
 
+  pullup: pullUpInt;
+  pulluparray: pullupArray;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private _http: HttpClient) {
+    this.pulluparray = (<any>data);
+    this.pullup = this.pulluparray[0];
+    console.log(this.pulluparray);
   }
 
   ionViewDidLoad() {
@@ -37,7 +45,12 @@ export class ExercisePage {
     console.log("Profile clicked!");
   }
 
-  public Clicked() {
+  public loadJson(): Observable<pullupArray> {
+    return this._http.get<pullupArray>("../../../json/pullup.json")
+
+  }
+
+  public clicked() {
     if (this.loop) {
       this.counter++;
       this.title = this.counter + "/" + this.goal;
@@ -45,7 +58,7 @@ export class ExercisePage {
       this.percent = this.counter/this.goal*100;
       if (this.percent == 100) {
         this.showAlert();
-        this.Completed();
+        this.completed();
       }
     }
   }
@@ -57,10 +70,10 @@ export class ExercisePage {
       buttons: ['OK']
     });
     alert.present();
-    this.TimerClicked();
+    this.timerClicked();
   }
 
-  public TimerClicked() {
+  public timerClicked() {
     if (this.buttState == "Start") {
       this.buttState = "Pause";
       this.title = this.counter + "/" + this.goal;
@@ -69,39 +82,51 @@ export class ExercisePage {
       this.buttState = "Start";
       this.loop = false;
     }
-    this.Timer();
+    this.timer();
   }
 
-  public Timer() {
+  public timer() {
     setTimeout(() => {
       if (this.loop) {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
-        this.Timer();
+        this.timer();
       }
     }, 100);
   }
 
-  public Stopped() {
+  public stopped() {
     this.loop = false;
     this.buttState = "Start";
     this.timeStamp = 0;
     this.timeStampString = "0";
-    this.counter = 0;
+    this.pullUpCounter = 0;
     this.percent = 0;
     this.title = this.counter + "/" + this.goal;
 
   }
 
-  public Completed() {
+  public completed() {
     this.loop = false;
     this.buttState = "Start";
-    this.counter = 0;
+    this.pullUpCounter = 0;
     this.percent = 0;
     this.timeStamp = 0;
     this.timeStampString = "0";
     this.title = this.counter + "/" + this.goal;
   }
 
+}
+
+interface pullupArray {
+
+  value: pullUpInt[];
+
+}
+
+interface pullUpInt {
+  type: String;
+  up: String;
+  down: String;
 
 }

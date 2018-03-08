@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ExercisePage } from './exercise';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 
 
 
@@ -9,10 +11,12 @@ import { ExercisePage } from './exercise';
 @NgModule({
   declarations: [
     ExercisePage,
+    
 
   ],
   imports: [
     IonicPageModule.forChild(ExercisePage),
+    HttpClientModule,
 
   ],
 })
