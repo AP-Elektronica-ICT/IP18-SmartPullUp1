@@ -14,6 +14,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BluetoothService } from '../services/BluetoothService';
+import { BLE } from '@ionic-native/ble';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
     StatusBar,
     SplashScreen,
     AuthenticationService,
+    BluetoothSerial,
+    BluetoothService,
+    BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
