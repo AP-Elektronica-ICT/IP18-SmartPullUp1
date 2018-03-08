@@ -11,9 +11,7 @@
     <ion-card-content>
    
       <circle-progress align="center" [percent]="percent" [radius]="75" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'"
-        [innerStrokeColor]="'#C7E596'" [animation]="false" [animationDuration]="300"></circle-progress>
-   
-        <ion-label class='goalLabel' relative>Goal: {{goal}}</ion-label>
+        [innerStrokeColor]="'#C7E596'" [animation]="false" [animationDuration]="300" [title]='title' [showUnits]='false' [showSubtitle]='Pull-ups'></circle-progress>   
         <ion-label class='timeLabel' relative>time: {{timeStampString}}</ion-label>
       
     </ion-card-content>

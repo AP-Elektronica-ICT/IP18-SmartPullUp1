@@ -23,6 +23,7 @@ export class ExercisePage {
   buttState = "Start";
   loop = false;
   public PageTitle = 'Exercise';
+  title = this.counter + "/" + this.goal;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
@@ -39,6 +40,8 @@ export class ExercisePage {
   public Clicked() {
     if (this.loop) {
       this.counter++;
+      this.title = this.counter + "/" + this.goal;
+
       this.percent = this.counter/this.goal*100;
       if (this.percent == 100) {
         this.showAlert();
@@ -60,6 +63,7 @@ export class ExercisePage {
   public TimerClicked() {
     if (this.buttState == "Start") {
       this.buttState = "Pause";
+      this.title = this.counter + "/" + this.goal;
       this.loop = true;
     } else {
       this.buttState = "Start";
@@ -85,6 +89,8 @@ export class ExercisePage {
     this.timeStampString = "0";
     this.counter = 0;
     this.percent = 0;
+    this.title = this.counter + "/" + this.goal;
+
   }
 
   public Completed() {
@@ -94,6 +100,7 @@ export class ExercisePage {
     this.percent = 0;
     this.timeStamp = 0;
     this.timeStampString = "0";
+    this.title = this.counter + "/" + this.goal;
   }
 
 
