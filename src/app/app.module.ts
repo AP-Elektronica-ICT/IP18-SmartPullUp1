@@ -18,6 +18,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothService } from '../services/BluetoothService';
 import { BLE } from '@ionic-native/ble';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -31,7 +33,8 @@ import { BLE } from '@ionic-native/ble';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgCircleProgressModule.forRoot({})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
