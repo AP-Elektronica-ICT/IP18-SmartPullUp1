@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SpubNavbarComponent } from './spub-navbar/spub-navbar';
+import { LoginComponent } from './login/login';
 @NgModule({
-	declarations: [SpubNavbarComponent],
+	declarations: [SpubNavbarComponent,
+    LoginComponent],
 	imports: [],
-	exports: [SpubNavbarComponent]
+	exports: [SpubNavbarComponent,
+    LoginComponent]
 })
 export class ComponentsModule {}

@@ -19,6 +19,7 @@ import { BluetoothService } from '../services/BluetoothService';
 import { BLE } from '@ionic-native/ble';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { LoginComponent } from '../components/login/login';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    LoginComponent,
     TabsPage
   ],
   imports: [
@@ -45,6 +47,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    LoginComponent,
     TabsPage
   ],
   providers: [

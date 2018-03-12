@@ -34,6 +34,16 @@ export class BluetoothService {
             this.gettingPairedDevices = true;
             this.bluetoothSerial.discoverUnpaired().then((success) => {
                   this.unpairedDevices = success;
+                  this.unpairedDevices.forEach(device => {
+                        //Filter bluetooth devices which name contains 'Smart Pull-Up Bar' or something.
+                        if (!device.name.includes("Smart Pull-Up Bar")) {
+                              var indexPos = this.unpairedDevices.some(function (element, i) {
+                                    if (element.name == device.name)
+                                          return i;
+                              });
+                              this.unpairedDevices.splice(indexPos, 1, device);
+                        }
+                  });
                   this.gettingUnpairedDevices = false;
                   success.forEach(element => {
                         console.log("Unpaired device: " + element.name);
