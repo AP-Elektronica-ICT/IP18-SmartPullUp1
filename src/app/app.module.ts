@@ -9,6 +9,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthenticationService } from '../services/AuthenticationService';
+import { JsonService } from '../services/JsonService';
+
 import { ExercisePage } from '../pages/exercise/exercise';
 import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
@@ -17,6 +19,7 @@ import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -47,10 +50,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     TabsPage
   ],
   providers: [
-    HttpClient,
+    HttpClientModule,
     StatusBar,
     SplashScreen,
     AuthenticationService,
+    JsonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

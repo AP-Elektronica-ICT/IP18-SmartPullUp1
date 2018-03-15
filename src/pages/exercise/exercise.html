@@ -9,25 +9,23 @@
 
   <ion-card>
     <ion-card-content>
-   
-      <circle-progress align="center" [percent]="percent" [radius]="75" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'"
-        [innerStrokeColor]="'#C7E596'" [animation]="false" [animationDuration]="300" [title]='title' [showUnits]='false' [showSubtitle]='Pull-ups'></circle-progress>   
-        <ion-label class='timeLabel' relative>time: {{timeStampString}}</ion-label>
-      
+
+      <circle-progress align="center" [percent]="percent" [radius]="75" [outerStrokeWidth]="10" [innerStrokeWidth]="10" [outerStrokeColor]="'#4882c2'"
+        [innerStrokeColor]="'#e7e8ea'" [animation]="false" [animationDuration]="300" [title]='title' [showUnits]='false' [showSubtitle]='Pull-ups'
+        [space]='-10'></circle-progress>
+      <ion-label class='time-label' relative>time: {{timeStampString}}</ion-label>
+
     </ion-card-content>
 
 
-    <ion-item>
-      <ion-label class='pullUps'>{{pullUpsLabel}}</ion-label>
-    </ion-item>
+
   </ion-card>
 
+<div class="button-container">
+  <button class="start" ion-button round color="dark" (click)="timerClicked()">{{buttState}}</button>
+  <button class="stop" ion-button round color="dark" (click)="stopped()">Stop</button>
 
-  <button ion-button color="dark" (click)="clicked()">Click</button>
-  <button ion-button color="dark" (click)="timerClicked()">{{buttState}}</button>
-  <button ion-button color="dark" (click)="stopped()">Stop</button>
-
-
+</div>
 
 
 </ion-content>

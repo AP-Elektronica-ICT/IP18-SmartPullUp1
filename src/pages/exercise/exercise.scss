@@ -1,27 +1,20 @@
-page-exercise {
 
 
-}
-
-.goalLabel {
-  font-size: 2em;
-  text-align: center;
-}
-
-
-.pullUps {
-  text-align: center;
-}
-
-
-.timeLabel{
+.time-label{
   font-size: 1em;
   text-align: center;
 }
 
 
 circle-progress{
-  
 
+  display: block;
+text-align: center;
+  padding: 10px;
   
+}
+
+.button-container{
+  display: block;
+  text-align: center;
 }
