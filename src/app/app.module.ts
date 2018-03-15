@@ -40,7 +40,6 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     IonicModule.forRoot(MyApp),
     NgCircleProgressModule.forRoot({})
   ],
@@ -58,14 +57,12 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     TabsPage
   ],
   providers: [
-    HttpClientModule,
     StatusBar,
     SplashScreen,
     AuthenticationService,
     BluetoothSerial,
     BluetoothService,
     BLE,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
     JsonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
