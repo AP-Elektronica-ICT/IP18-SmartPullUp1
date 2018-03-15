@@ -9,6 +9,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthenticationService } from '../services/AuthenticationService';
+import { JsonService } from '../services/JsonService';
+
 import { ExercisePage } from '../pages/exercise/exercise';
 import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
@@ -21,6 +23,7 @@ import { BLE } from '@ionic-native/ble';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     NgCircleProgressModule.forRoot({})
   ],
@@ -54,6 +58,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     TabsPage
   ],
   providers: [
+    HttpClientModule,
     StatusBar,
     SplashScreen,
     AuthenticationService,
@@ -61,6 +66,8 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     BluetoothService,
     BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+    JsonService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

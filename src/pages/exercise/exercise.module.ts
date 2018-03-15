@@ -3,9 +3,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { ExercisePage } from './exercise';
 
 
-
-
-
 @NgModule({
   declarations: [
     ExercisePage,
