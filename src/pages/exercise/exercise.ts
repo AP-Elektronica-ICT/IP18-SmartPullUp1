@@ -14,7 +14,7 @@ import { JsonService, DummyData } from '../../services/JsonService';
 export class ExercisePage {
   percent = 0;
   pullUpCounter = 0;
-  goal = 1;
+  goal = 7;
   pullUpsLabel = "Pull-Ups";
   timeStamp = 0;
   timeStampString = "0";
@@ -29,6 +29,10 @@ export class ExercisePage {
   pullup2;
   pullup3;
   pullup4;
+  pullup5;
+  pullup6;
+  pullup7;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private service: JsonService) {
   }
@@ -116,6 +120,11 @@ export class ExercisePage {
     this.pullup2 = this.pullupArray.array[1].down;
     this.pullup3 = this.pullupArray.array[2].down;
     this.pullup4 = this.pullupArray.array[3].down;
+    this.pullup5 = this.pullupArray.array[4].down;
+    this.pullup6 = this.pullupArray.array[5].down;
+    this.pullup7 = this.pullupArray.array[6].down;
+
+    
   }
 
   public checkPullUps() {
@@ -134,6 +143,18 @@ export class ExercisePage {
         break;
       }
       case this.pullup4:{
+        this.clicked();
+        break;
+      }
+      case this.pullup5:{
+        this.clicked();
+        break;
+      }
+      case this.pullup6:{
+        this.clicked();
+        break;
+      }
+      case this.pullup7:{
         this.clicked();
         break;
       }
