@@ -20,6 +20,7 @@ import { BLE } from '@ionic-native/ble';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
+import { PopoverLoginComponent } from '../components/popover-login/popover-login';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginComponent } from '../components/login/login';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    PopoverLoginComponent,
     LoginComponent,
     TabsPage
   ],
@@ -47,6 +49,7 @@ import { LoginComponent } from '../components/login/login';
     FriendsPage,
     SchedulePage,
     SpubNavbarComponent,
+    PopoverLoginComponent,
     LoginComponent,
     TabsPage
   ],

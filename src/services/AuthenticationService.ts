@@ -33,6 +33,7 @@ export class AuthenticationService {
 
   private setStorageVariable(name, data) {
     window.localStorage.setItem(name, JSON.stringify(data));
+    console.log(JSON.stringify(data));
   }
 
   private setIdToken(token) {

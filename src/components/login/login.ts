@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
 /**
  * Generated class for the LoginComponent component.
@@ -12,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
-  constructor() {
+  constructor(private auth: AuthenticationService) {
     console.log('Init login component');
 
   }

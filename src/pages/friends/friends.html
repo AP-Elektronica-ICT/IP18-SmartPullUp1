@@ -32,7 +32,7 @@
         None
       </ion-item>
       <ion-item *ngFor='let device of bluetooth.unpairedDevices'>
-        <span (click)="connectDevice(device.address)" *ngIf="device.name != 'undefined'">
+        <span (click)="connectDevice(device.address)">
           {{device.name}}
         </span>
       </ion-item>

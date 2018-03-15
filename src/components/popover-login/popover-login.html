@@ -1,0 +1,4 @@
+<ion-list *ngIf="auth.isAuthenticated()">
+  <ion-list-header>Hey {{ auth.user.username }}!</ion-list-header>
+  <button ion-item (click)="close()">Learn Ionic</button>
+</ion-list>
