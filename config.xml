@@ -94,5 +94,15 @@
         <variable name="ANDROID_HOST" value="spub.eu.auth0.com" />
         <variable name="ANDROID_PATHPREFIX" value="/cordova/com.spub/callback" />
     </plugin>
+    <allow-navigation href="http://169.254.107.226:8100" />
+    <plugin name="cordova-plugin-bluetooth-serial" spec="^0.4.7" />
+    <plugin name="cordova-plugin-ble-central" spec="^1.1.4">
+        <variable name="BLUETOOTH_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <allow-navigation href="http://192.168.11.14:8100" />
     <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="5.0.3" />
+    <allow-navigation href="http://192.168.150.80:8100" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
 </widget>

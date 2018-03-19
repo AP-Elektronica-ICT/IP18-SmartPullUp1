@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BluetoothService } from '../../services/BluetoothService';
+import { AuthenticationService } from '../../services/AuthenticationService';
+
+
 
 /**
  * Generated class for the FriendsPage page.
@@ -15,11 +19,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FriendsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bluetooth: BluetoothService, private auth: AuthenticationService) {
+    
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FriendsPage');
+   
   }
 
+  startScanning() {
+    this.bluetooth.scanForDevices();
+  }
+
+  connectDevice(address: any) {
+    this.bluetooth.connectDevice(address);
+  }
+
+  disconnectDevice(){
+    this.bluetooth.disconnectDevice();
+  }
+ 
 }
