@@ -1,0 +1,39 @@
+<ion-header>
+  <spub-navbar pageTitle="Bluetooth Connect">
+  </spub-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <div>
+    <ion-list padding>
+      <button ion-button block color="prettyblue" (click)="startScanning()">Scan for bars</button>
+      <ion-list-header>
+        Paired Devices
+      </ion-list-header>
+      <ion-item *ngIf="!bluetooth.pairedDevices">
+        None
+      </ion-item>
+      <ion-item *ngFor="let device of bluetooth.pairedDevices">
+        <span (click)="connectDevice(device.address)">
+          {{device.name}}
+        </span>
+      </ion-item>
+      <ion-spinner name="ios" *ngIf="bluetooth.gettingPairedDevices"></ion-spinner>
+      <!-- <button ion-button block (click)="disconnectDevice()">Disconnect</button> -->
+      <ion-list-header>
+        Available Devices
+      </ion-list-header>
+      <ion-item *ngIf="!bluetooth.unpairedDevices">
+        None
+      </ion-item>
+      <ion-item *ngFor='let device of bluetooth.unpairedDevices'>
+        <span (click)="connectDevice(device.address)">
+          {{device.name}}
+        </span>
+      </ion-item>
+      <ion-spinner name="ios" *ngIf="bluetooth.gettingUnpairedDevices"></ion-spinner>
+    </ion-list>
+  </div>
+</ion-content>
