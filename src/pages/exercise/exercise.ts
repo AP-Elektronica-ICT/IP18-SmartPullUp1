@@ -22,27 +22,22 @@ export class ExercisePage {
   loop = false;
   public PageTitle = 'Exercise';
   title = this.pullUpCounter + "/" + this.goal;
+  i =0;
 
 
   pullupArray: DummyData;
-  pullup1;
-  pullup2;
-  pullup3;
-  pullup4;
-  pullup5;
-  pullup6;
-  pullup7;
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private service: JsonService) {
+    this.pullupArray = this.service.getData()
+    this.goal = this.pullupArray.array.length;
   }
 
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExercisePage');
-    this.pullupArray = this.service.getData()
-    this.loadPullUps();
   }
 
   profileClicked() {
@@ -50,7 +45,7 @@ export class ExercisePage {
   }
 
 
-  public clicked() {
+  public Count() {
     this.pullUpCounter++;
     this.title = this.pullUpCounter + "/" + this.goal;
     this.percent = this.pullUpCounter / this.goal * 100;
@@ -96,7 +91,7 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        this.checkPullUps();
+        // this.checkPullUps();
       }
     }, 100);
   }
@@ -115,56 +110,22 @@ export class ExercisePage {
 
 
   //This is Dummydata code plis no judgy en delete when real data is hier
-  public loadPullUps() {
-    this.pullup1 = this.pullupArray.array[0].down;
-    this.pullup2 = this.pullupArray.array[1].down;
-    this.pullup3 = this.pullupArray.array[2].down;
-    this.pullup4 = this.pullupArray.array[3].down;
-    this.pullup5 = this.pullupArray.array[4].down;
-    this.pullup6 = this.pullupArray.array[5].down;
-    this.pullup7 = this.pullupArray.array[6].down;
 
-    
-  }
 
   public checkPullUps() {
 
-    switch (this.timeStamp/10) {
-      case this.pullup1:{
-        this.clicked();
-        break;
+    if(this.pullupArray.array[this.i].down == this.timeStamp/10){
+      this.Count();
+      if(this.pullupArray.array.length){
+        this.i++;
       }
-      case this.pullup2:{
-        this.clicked();
-        break;
-      }
-      case this.pullup3:{
-        this.clicked();
-        break;
-      }
-      case this.pullup4:{
-        this.clicked();
-        break;
-      }
-      case this.pullup5:{
-        this.clicked();
-        break;
-      }
-      case this.pullup6:{
-        this.clicked();
-        break;
-      }
-      case this.pullup7:{
-        this.clicked();
-        break;
-      }
-    }
+
+    }   
   }
+
   SendToDatabase(totalPullUps){
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
-
-
 }
 
 export interface PullUpInt {
