@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavController } from 'ionic-angular';
 import { AuthenticationService } from '../../services/AuthenticationService';
+import { ProfilePage } from '../../pages/profile/profile';
+import { TabsPage } from '../../pages/tabs/tabs';
 
 /**
  * Generated class for the PopoverLoginComponent component.
@@ -14,10 +16,21 @@ import { AuthenticationService } from '../../services/AuthenticationService';
 })
 export class PopoverLoginComponent {
 
-  constructor(public viewCtrl: ViewController, private auth: AuthenticationService) {}
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, private auth: AuthenticationService) {}
 
+  navProfile() {
+    this.close();
+  }
   close() {
     this.viewCtrl.dismiss();
+  }
+  login() {
+    this.close();
+    this.auth.login();
+  }
+  logout() {
+    this.close();
+    this.auth.logout();
   }
 
 }
