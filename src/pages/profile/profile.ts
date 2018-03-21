@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthenticationService } from '../../services/AuthenticationService';
+//import { AuthenticationService } from '../../services/AuthenticationService';
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,8 +15,8 @@ import { AuthenticationService } from '../../services/AuthenticationService';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService) {
+  // temporary turn off auth: private auth: AuthenticationService
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
