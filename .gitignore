@@ -34,3 +34,4 @@ API/vendor
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+/API/nbproject/private/
