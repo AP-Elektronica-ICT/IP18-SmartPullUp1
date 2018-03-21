@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RegistrationPage } from '../registration/registration';
 //import { AuthenticationService } from '../../services/AuthenticationService';
 
 /**
@@ -19,6 +20,9 @@ export class ProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  GoToRegistration(){
+    this.navCtrl.setRoot(RegistrationPage);
+    }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
