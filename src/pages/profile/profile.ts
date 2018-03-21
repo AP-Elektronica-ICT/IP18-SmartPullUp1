@@ -22,7 +22,7 @@ export class ProfilePage {
 
   GoToRegistration(){
     this.navCtrl.setRoot(RegistrationPage);
-    }
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
