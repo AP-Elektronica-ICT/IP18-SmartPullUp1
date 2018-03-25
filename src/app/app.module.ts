@@ -8,6 +8,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ApiService } from '../services/ApiService';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { JsonService } from '../services/JsonService';
 
@@ -43,6 +45,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     NgCircleProgressModule.forRoot({})
   ],
   bootstrap: [IonicApp],
@@ -67,6 +70,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     BluetoothService,
     BLE,
     JsonService,
+    ApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

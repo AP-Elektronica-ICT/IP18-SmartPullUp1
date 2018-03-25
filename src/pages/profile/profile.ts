@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegistrationPage } from '../registration/registration';
-//import { AuthenticationService } from '../../services/AuthenticationService';
+import { AuthenticationService } from '../../services/AuthenticationService';
+import { ApiService } from '../../services/ApiService';
 
 /**
  * Generated class for the ProfilePage page.
@@ -16,15 +17,16 @@ import { RegistrationPage } from '../registration/registration';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  // temporary turn off auth: private auth: AuthenticationService
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
 
-  GoToRegistration(){
-    this.navCtrl.setRoot(RegistrationPage);
+
+  user : any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private api : ApiService) {
   }
+  
   ionViewDidLoad() {
+    this.api.getUserById('test').then(data => {
+      this.user = data;
+    });
     console.log('ionViewDidLoad ProfilePage');
   }
-
 }
