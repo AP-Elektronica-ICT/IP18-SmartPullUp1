@@ -4,57 +4,36 @@
   </ion-header>
 
 <ion-content padding>
-    <ion-list>
-
-        <ion-item>
-          <ion-icon name="calendar" item-start></ion-icon>
-          <ion-label stacked>Username</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      
-        <ion-item>
-          <ion-icon name="ios-body" item-start></ion-icon>
-          <ion-label stacked>Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="ios-body" item-start></ion-icon>
-            <ion-label stacked>Password</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
-      
-      </ion-list>
-  <ion-card>
+<ion-card>
     <ion-card-content>
       <ion-card-title *ngIf="user">
         {{ user.name }}
       </ion-card-title>
-      <ion-list>
+    <ion-list>
         <ion-item *ngIf="user">
           <ion-icon name="calendar" item-start></ion-icon>
-            {{ user.age }}
-        </ion-item>
+          <ion-label stacked>Birthdate</ion-label>
+          <ion-input type="text" placeholder="{{ user.age }}">{{ user.age}}</ion-input>
+        </ion-item> 
         <ion-item *ngIf="user">
           <ion-icon name="ios-body" item-start></ion-icon>
-            {{ user.weight }} kg
+          <ion-label stacked>Weight</ion-label>
+          <ion-input type="text" placeholder="{{ user.weight }}"></ion-input> kg
         </ion-item>
-        <ion-item>
-          <ion-icon name="md-star" item-start></ion-icon>
+        <ion-item *ngIf="user">
+            <ion-icon name="md-star" item-start></ion-icon>
             Record 10
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <button ion-button (click)="GoToRegistration()">Save</button>
+  <button ion-button full (click)="GoToRegistration()">Save</button>
 
-
-  <login *ngIf="!auth.isAuthenticated()"></login>
-  <login *ngIf="!auth.isAuthenticated()"></login>
+  <!-- <login *ngIf="!auth.isAuthenticated()"></login>
   <div *ngIf="auth.isAuthenticated()">
     <p>YOU ARE LOGGED IN HOW AWESOME!</p>
     <p>Would you like to log out?</p>
     <button ion-button (click)="auth.logout()">Logout</button>
-  </div>
+  </div> -->
   
 </ion-content>

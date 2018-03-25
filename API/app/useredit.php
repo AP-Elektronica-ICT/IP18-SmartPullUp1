@@ -1,8 +1,32 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+$app->get('/useredit/{id}', function($request, $response, $args){
+    $collection = (new MongoDB\Client)->smartpullupbar->users;
+    $id = $args['id'];
+    echo $id;
+    $collection->insertOne([
+        "userid" => "hjkdh32jhjfshjdsfk",
+        "name" => "Ruben Nemes",
+        "age" => 22,
+        "weight" => 75,
+        "pullups" => [
+            "1520182860" => [
+                "pullup1" => [
+                   4.9,
+                   6.1 
+                ],
+                "pullup2" => [
+                   8.4,
+                   9.3 
+                ],
+                "pullup3" => [
+                   11.7,
+                   12.9 
+                ],
+                "pullup4" => [
+                   18.4,
+                   19 
+                ]
+            ]
+        ]
+    ]);
+});
