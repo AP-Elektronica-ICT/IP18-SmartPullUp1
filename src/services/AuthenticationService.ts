@@ -47,7 +47,16 @@ export class AuthenticationService {
   }
 
   public isAuthenticated() {
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    let expiresAtString = localStorage.getItem('expires_at');
+    let expiresAt: any;
+    if(expiresAtString.charAt(0) == '"'){
+      expiresAt = JSON.parse(expiresAtString);
+    } else {
+      expiresAt = '"' + (new Date(localStorage.getItem('expires_at')).getTime() / 1000) + '"';
+    }
+
+    console.log(expiresAt);
+    
     return Date.now() < expiresAt;
   }
 
@@ -67,6 +76,7 @@ export class AuthenticationService {
       this.setAccessToken(authResult.accessToken);
 
       const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+
       this.setStorageVariable('expires_at', expiresAt);
 
       this.auth0.client.userInfo(this.accessToken, (err, profile) => {
