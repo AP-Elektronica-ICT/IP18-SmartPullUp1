@@ -4,13 +4,13 @@
   </ion-header>
 
 <ion-content padding>
-
-  <!-- App content here -->
+  <div *ngIf="user">{{ user.userid}}</div>
+  <!-- App content here
   <login *ngIf="!auth.isAuthenticated()"></login>
   <div *ngIf="auth.isAuthenticated()">
     <p>YOU ARE LOGGED IN HOW AWESOME!</p>
     <p>Would you like to log out?</p>
     <button ion-button (click)="auth.logout()">Logout</button>
-  </div>
+  </div> -->
   
 </ion-content>

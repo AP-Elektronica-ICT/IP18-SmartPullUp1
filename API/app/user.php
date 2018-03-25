@@ -1,9 +1,10 @@
 <?php
-$app->get('/users/{id}', function($request, $response, $args){
-    //$collection = (new MongoDB\Client)->smartpullupbar->users;
+$app->get('/user/{id}', function($request, $response, $args){
+    $collection = (new MongoDB\Client)->smartpullupbar->users;
     $id = $args['id'];
     $document = $collection->findOne(
-            ['id' => $id]
+            ['userid' => $id]
     );
-    echo $document;
+    header('Content-Type: application/json');
+    echo json_encode($document);
 });
