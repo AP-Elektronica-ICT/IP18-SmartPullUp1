@@ -17,12 +17,17 @@
     </ion-card-content>
   </ion-card>
 
-  <div class="button-container" *ngIf="isConnected">
+
+  <div class="button-container" *ngIf="isConnected || NOBLUETOOTH">
     <button class="start" ion-button round color="prettyblue" (click)="startPause()">{{buttState}}</button>
     <button class="stop" ion-button round color="prettyblue" (click)="stopped()">Stop</button>
   </div>
-  <div class="button-container" *ngIf="!isConnected">
+  <div class="button-container" *ngIf="!isConnected && !NOBLUETOOTH">
     <button ion-button block color="prettyblue" (click)="showBluetoothList()">Scan for smart pull-up bar</button>
+    <br>
+  </div>
+  <div class="button-container" *ngIf="NOBLUETOOTH">
+    <button ion-button block color="dark" (click)="count()">PULL UP!</button>
   </div>
 
 </ion-content>
