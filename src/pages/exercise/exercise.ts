@@ -36,11 +36,13 @@ export class ExercisePage {
   private loader: any;
 
 
+  private NOBLUETOOTH = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
 
-    bluetooth.isConnected().then( (yes) => {
+    bluetooth.isConnected().then((yes) => {
       this.isConnected = true;
     }, (no) => {
       this.isConnected = false;
@@ -101,7 +103,7 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        // this.checkPullUps();
+        this.checkPullUps();
       }
     }, 100);
   }
@@ -123,7 +125,15 @@ export class ExercisePage {
 
 
   public checkPullUps() {
-
+    this.bluetooth.read().then((success) => {
+      if(this.running)
+        this.count();
+        
+      console.log(JSON.parse(success));
+    }, (failed) => {
+      console.log("Failed to read bluetooth data");
+    });
+    /*
     if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
       this.count();
       if (this.pullupArray.array.length) {
@@ -131,6 +141,7 @@ export class ExercisePage {
       }
 
     }
+    */
   }
 
   SendToDatabase(totalPullUps) {
