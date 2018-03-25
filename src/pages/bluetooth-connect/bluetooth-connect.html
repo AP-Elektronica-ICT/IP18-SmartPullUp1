@@ -12,28 +12,29 @@
       <ion-list-header>
         Paired Devices
       </ion-list-header>
-      <ion-item *ngIf="!bluetooth.pairedDevices">
+      <ion-item *ngIf="!pairedDevices">
         None
       </ion-item>
-      <ion-item *ngFor="let device of bluetooth.pairedDevices">
+      <ion-item *ngFor="let device of pairedDevices">
         <span (click)="connectDevice(device.address)">
           {{device.name}}
         </span>
       </ion-item>
-      <ion-spinner name="ios" *ngIf="bluetooth.gettingPairedDevices"></ion-spinner>
+      <ion-spinner name="ios" *ngIf="gettingPairedDevices"></ion-spinner>
       <!-- <button ion-button block (click)="disconnectDevice()">Disconnect</button> -->
       <ion-list-header>
         Available Devices
       </ion-list-header>
-      <ion-item *ngIf="!bluetooth.unpairedDevices">
+      <ion-item *ngIf="!unpairedDevices">
         None
       </ion-item>
-      <ion-item *ngFor='let device of bluetooth.unpairedDevices'>
+      <ion-item *ngFor='let device of unpairedDevices'>
         <span (click)="connectDevice(device.address)">
           {{device.name}}
         </span>
       </ion-item>
-      <ion-spinner name="ios" *ngIf="bluetooth.gettingUnpairedDevices"></ion-spinner>
+      <ion-spinner name="ios" *ngIf="gettingUnpairedDevices"></ion-spinner>
     </ion-list>
+    <button ion-button block color="secondary" (click)="directConnect()">Direct connect</button>
   </div>
 </ion-content>

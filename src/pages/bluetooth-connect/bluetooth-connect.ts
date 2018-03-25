@@ -24,6 +24,8 @@ export class BluetoothConnectPage {
   public bluetoothAddress: string;
   private loader: any;
 
+  public BTDEBUG = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController) {
   }
 
@@ -33,7 +35,7 @@ export class BluetoothConnectPage {
 
   showConnectingPopup() {
     this.loader = this.loadingCtrl.create({
-      content: "Connecting to Karlo"
+      content: "Connecting to Smart Pull-Up Bar"
     });
     this.loader.present();
   }
@@ -64,6 +66,10 @@ export class BluetoothConnectPage {
       (err) => {
         console.log(err);
       })
+  }
+
+  directConnect(){
+    this.connectDevice(this.bluetoothAddress);
   }
 
   connectDevice(address: any) {

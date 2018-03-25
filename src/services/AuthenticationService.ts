@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   private setStorageVariable(name, data) {
     window.localStorage.setItem(name, JSON.stringify(data));
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
   }
 
   private setIdToken(token) {
@@ -47,16 +47,10 @@ export class AuthenticationService {
   }
 
   public isAuthenticated() {
-    let expiresAtString = localStorage.getItem('expires_at');
-    let expiresAt: any;
-    if(expiresAtString.charAt(0) == '"'){
-      expiresAt = JSON.parse(expiresAtString);
-    } else {
-      expiresAt = '"' + (new Date(localStorage.getItem('expires_at')).getTime() / 1000) + '"';
-    }
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
 
-    console.log(expiresAt);
-    
+    // console.log(expiresAt);
+
     return Date.now() < expiresAt;
   }
 
@@ -68,7 +62,7 @@ export class AuthenticationService {
     };
 
     client.authorize(options, (err, authResult) => {
-      if(err) {
+      if (err) {
         throw err;
       }
 
@@ -80,7 +74,7 @@ export class AuthenticationService {
       this.setStorageVariable('expires_at', expiresAt);
 
       this.auth0.client.userInfo(this.accessToken, (err, profile) => {
-        if(err) {
+        if (err) {
           throw err;
         }
 
