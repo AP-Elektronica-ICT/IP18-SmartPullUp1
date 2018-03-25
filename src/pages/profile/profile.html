@@ -9,12 +9,12 @@
   <login *ngIf="!auth.isAuthenticated()"></login>
   <div *ngIf="auth.isAuthenticated()">
     <p>YOU ARE LOGGED IN HOW AWESOME!</p>
-    <p>Your user_id = {{auth.user.sub}}</p>
+    <!-- <p>Your user_id = {{auth.user.sub}}</p> -->
     <p>Would you like to log out?</p>
     <button ion-button (click)="auth.logout()">Logout</button>
   </div>
   
 
-  <pre class="full-profile">{{ auth.user | json }}</pre>
+  <!-- <pre class="full-profile">{{ auth.user | json }}</pre> -->
 
 </ion-content>
