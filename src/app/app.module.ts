@@ -8,6 +8,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ApiService } from '../services/ApiService';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { JsonService } from '../services/JsonService';
 
@@ -15,6 +17,7 @@ import { ExercisePage } from '../pages/exercise/exercise';
 import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
+import { RegistrationPage } from '../pages/registration/registration';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothService } from '../services/BluetoothService';
@@ -34,6 +37,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    RegistrationPage,
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
@@ -43,6 +47,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     NgCircleProgressModule.forRoot({})
   ],
   bootstrap: [IonicApp],
@@ -53,6 +58,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    RegistrationPage,
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
@@ -67,6 +73,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
     BluetoothService,
     BLE,
     JsonService,
+    ApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

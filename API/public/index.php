@@ -6,24 +6,19 @@ require '../vendor/autoload.php';
 
 $app = new \Slim\App;
 
-require_once('../app/users.php');   
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
+
+require_once('../app/user.php');
+require_once('../app/useredit.php');
+//require_once('../app/users.php');
 
 $app->run();
-
-
-
-//function showData()
-//{
-//// connect
-//    $m = new MongoClient();
-//// select your database
-//    $db = $m->dbname;
-//// select your collection
-//    $collection = $db->collectionname;
-//// find everything in the collection
-//    $cursor = $collection->find();
-//// Show the result here
-//    foreach ($cursor as $document) {
-//        echo $document["title"] . "\n";
-//    }
-//}

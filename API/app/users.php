@@ -1,7 +1,8 @@
 <?php
-$app->get('/users', function(){
+$app->get('/users/{id}', function($request, $response, $args){
     $collection = (new MongoDB\Client)->smartpullupbar->users;
-    
+    $id = $args['id'];
+    echo $id;
     $collection->insertOne([
         "userid" => "hjkdh32jhjfshjdsfk",
         "name" => "Ruben Nemes",
