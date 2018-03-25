@@ -1,30 +1,34 @@
 import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
-import { LoadingController } from 'ionic-angular';
 
 /**
- * Generated class for the BluetoothDeviceComponent component.
+ * Generated class for the BluetoothConnectPage page.
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
-@Component({
-  selector: 'bluetooth-device',
-  templateUrl: 'bluetooth-device.html'
-})
-export class BluetoothDeviceComponent {
 
-  public unpairedDevices: any;
-  public pairedDevices: any;
-  public gettingUnpairedDevices: Boolean;
-  public gettingPairedDevices: Boolean;
+@IonicPage()
+@Component({
+  selector: 'page-bluetooth-connect',
+  templateUrl: 'bluetooth-connect.html',
+})
+export class BluetoothConnectPage {
+
+  private unpairedDevices: any;
+  private pairedDevices: any;
+  private gettingUnpairedDevices: Boolean;
+  private gettingPairedDevices: Boolean;
   public isConnected: boolean;
   public bluetoothAddress: string;
   private loader: any;
 
-  constructor(private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController) {
+  }
 
-
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad BluetoothConnectPage');
   }
 
   showConnectingPopup() {
@@ -41,16 +45,6 @@ export class BluetoothDeviceComponent {
     this.gettingPairedDevices = true;
     this.bluetooth.discoverUnpaired().then((success) => {
       this.unpairedDevices = success;
-      this.unpairedDevices.forEach(device => {
-        //Filter bluetooth devices which name contains 'Smart Pull-Up Bar' or something.
-        if (!device.name.includes("Smart Pull-Up Bar")) {
-          var indexPos = this.unpairedDevices.some(function (element, i) {
-            if (element.name == device.name)
-              return i;
-          });
-          this.unpairedDevices.splice(indexPos, 1, device);
-        }
-      });
       this.gettingUnpairedDevices = false;
       success.forEach(element => {
         console.log("Unpaired device: " + element.name);

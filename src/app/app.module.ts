@@ -23,6 +23,7 @@ import { BLE } from '@ionic-native/ble';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
+import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
+    BluetoothConnectPage,
     TabsPage
   ],
   imports: [
@@ -54,6 +56,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
+    BluetoothConnectPage,
     TabsPage
   ],
   providers: [

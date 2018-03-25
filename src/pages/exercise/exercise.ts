@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { JsonService, DummyData } from '../../services/JsonService';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 
 
 @IonicPage()
@@ -12,56 +14,59 @@ import { JsonService, DummyData } from '../../services/JsonService';
 })
 
 export class ExercisePage {
-  percent = 0;
-  pullUpCounter = 0;
-  goal = 7;
-  pullUpsLabel = "Pull-Ups";
-  timeStamp = 0;
-  timeStampString = "0";
-  buttState = "Start";
-  loop = false;
   public PageTitle = 'Exercise';
-  title = this.pullUpCounter + "/" + this.goal;
+  private percent = 0;
+  private pullUpCounter = 0;
+  private goal = 20;
+  private pullUpsLabel = "Pull-Ups";
+  private timeStamp = 0;
+  private timeStampString = "0";
+  private buttState = "Start";
+  private running = false;
+
+  private title = this.pullUpCounter + "/" + this.goal;
+  private pullupArrayIterator = 0;
 
 
-  pullupArray: DummyData;
-  pullup1;
-  pullup2;
-  pullup3;
-  pullup4;
-  pullup5;
-  pullup6;
-  pullup7;
+  private pullupArray: DummyData;
+  private isConnected = false;
+
+  private unpairedDevices: any;
+  private pairedDevices: any;
+  private loader: any;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private service: JsonService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
+    // this.pullupArray = this.json.getData()
+    // this.goal = this.pullupArray.array.length;
+
+    bluetooth.isConnected().then( (yes) => {
+      this.isConnected = true;
+    }, (no) => {
+      this.isConnected = false;
+    });
   }
-
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExercisePage');
-    this.pullupArray = this.service.getData()
-    this.loadPullUps();
   }
 
-  profileClicked() {
-    console.log("Profile clicked!");
+  public showBluetoothList() {
+    let modal = this.modCtrl.create(BluetoothConnectPage);
+    modal.present();
   }
 
-
-  public clicked() {
+  public count() {
     this.pullUpCounter++;
     this.title = this.pullUpCounter + "/" + this.goal;
     this.percent = this.pullUpCounter / this.goal * 100;
-    if (this.percent == 100) {
-    this.loop= false;
-      this.showAlert();
+    if (this.percent >= 100) {
+      this.running = false;
+      this.showFinishedAlert();
     }
-
   }
 
-  public showAlert() {
+  public showFinishedAlert() {
     let alert = this.alertCtrl.create({
       title: 'Complete!',
       subTitle: 'Nice one! you did ' + this.goal + ' Pull-ups!',
@@ -75,35 +80,35 @@ export class ExercisePage {
       ]
     });
     alert.present();
-    this.timerClicked();
+    this.startPause();
   }
 
-  public timerClicked() {
+  public startPause() {
     if (this.buttState == "Start") {
       this.buttState = "Pause";
       this.title = this.pullUpCounter + "/" + this.goal;
-      this.loop = true;
+      this.running = true;
     } else {
       this.buttState = "Start";
-      this.loop = false;
+      this.running = false;
     }
     this.timer();
   }
 
   public timer() {
     setTimeout(() => {
-      if (this.loop) {
+      if (this.running) {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        this.checkPullUps();
+        // this.checkPullUps();
       }
     }, 100);
   }
 
   public stopped() {
     this.SendToDatabase(this.pullUpCounter);
-    this.loop = false;
+    this.running = false;
     this.buttState = "Start";
     this.timeStamp = 0;
     this.timeStampString = "0";
@@ -115,56 +120,22 @@ export class ExercisePage {
 
 
   //This is Dummydata code plis no judgy en delete when real data is hier
-  public loadPullUps() {
-    this.pullup1 = this.pullupArray.array[0].down;
-    this.pullup2 = this.pullupArray.array[1].down;
-    this.pullup3 = this.pullupArray.array[2].down;
-    this.pullup4 = this.pullupArray.array[3].down;
-    this.pullup5 = this.pullupArray.array[4].down;
-    this.pullup6 = this.pullupArray.array[5].down;
-    this.pullup7 = this.pullupArray.array[6].down;
 
-    
-  }
 
   public checkPullUps() {
 
-    switch (this.timeStamp/10) {
-      case this.pullup1:{
-        this.clicked();
-        break;
+    if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
+      this.count();
+      if (this.pullupArray.array.length) {
+        this.pullupArrayIterator++;
       }
-      case this.pullup2:{
-        this.clicked();
-        break;
-      }
-      case this.pullup3:{
-        this.clicked();
-        break;
-      }
-      case this.pullup4:{
-        this.clicked();
-        break;
-      }
-      case this.pullup5:{
-        this.clicked();
-        break;
-      }
-      case this.pullup6:{
-        this.clicked();
-        break;
-      }
-      case this.pullup7:{
-        this.clicked();
-        break;
-      }
+
     }
   }
-  SendToDatabase(totalPullUps){
+
+  SendToDatabase(totalPullUps) {
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
-
-
 }
 
 export interface PullUpInt {

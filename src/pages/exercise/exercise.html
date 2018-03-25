@@ -6,7 +6,6 @@
 
 <ion-content padding>
 
-
   <ion-card>
     <ion-card-content>
 
@@ -16,16 +15,14 @@
       <ion-label class='time-label' relative>time: {{timeStampString}}</ion-label>
 
     </ion-card-content>
-
-
-
   </ion-card>
 
-  <div class="button-container">
-    <button class="start" ion-button round color="dark" (click)="timerClicked()">{{buttState}}</button>
-    <button class="stop" ion-button round color="dark" (click)="stopped()">Stop</button>
-
+  <div class="button-container" *ngIf="isConnected">
+    <button class="start" ion-button round color="prettyblue" (click)="startPause()">{{buttState}}</button>
+    <button class="stop" ion-button round color="prettyblue" (click)="stopped()">Stop</button>
   </div>
-
+  <div class="button-container" *ngIf="!isConnected">
+    <button ion-button block color="prettyblue" (click)="showBluetoothList()">Scan for smart pull-up bar</button>
+  </div>
 
 </ion-content>
