@@ -20,7 +20,7 @@ export class AuthenticationService {
   auth0 = new Auth0.WebAuth(auth0Config);
   accessToken: string;
   idToken: string;
-  user: any;
+  public user: any;
 
   constructor(public zone: NgZone) {
     this.user = this.getStorageVariable('profile');
@@ -78,6 +78,7 @@ export class AuthenticationService {
         this.setStorageVariable('profile', profile);
         this.zone.run(() => {
           this.user = profile;
+          console.log(this.user);
         });
       });
     });
