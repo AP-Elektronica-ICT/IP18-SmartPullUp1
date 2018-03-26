@@ -91,13 +91,13 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        // this.checkPullUps();
+        this.checkPullUps();
       }
     }, 100);
   }
 
   public stopped() {
-    this.SendToDatabase(this.pullUpCounter);
+    this.SendToDatabase();
     this.loop = false;
     this.buttState = "Start";
     this.timeStamp = 0;
@@ -123,8 +123,16 @@ export class ExercisePage {
     }   
   }
 
-  SendToDatabase(totalPullUps){
-    console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
+  SendToDatabase(){
+    var PullupJson = { 
+      "UID": 2,
+      "Pullups": this.pullUpCounter, 
+      "Time": this.timeStamp,
+      "Date": Date.now()
+  }; 
+
+    console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
+
   }
 }
 
