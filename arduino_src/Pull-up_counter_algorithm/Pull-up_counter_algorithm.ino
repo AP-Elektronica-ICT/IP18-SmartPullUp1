@@ -3,7 +3,7 @@
 
 MedianFilter median(5, 460);
 
-double sampling = 5; 
+double sampling = 20; 
 double sampleTime = 0;
 double Start = 0;
 
@@ -17,7 +17,8 @@ int output;
 int i = 0;
 int Count = 0;
 int old_func_value = 0;
-int ref_rest_avg = 0;
+long int ref_rest_avg = 0;
+long int ref_hang_avg = 0;
 
 boolean Flag = true;
 int oldout = 0;
@@ -32,7 +33,8 @@ for(i = 0; i < 30; i++)
     average = average + input;
   }
 average = average / 30.0;
-feedback = feedback * 0.8 + 0.2 * average;  
+feedback = feedback * 0.8 + 0.2 * average;
+output = feedback;  
 }
 
 void measure(){
@@ -41,32 +43,48 @@ filter();
 
 sampleTime += sampling / 1000;
   
-if(oldout > output * 0.7 && sampleTime > 30)
+if(output < ref_rest_avg - 50)
   {
     if(Start==0)
       {
         Start = sampleTime;
       }  
-      if(sampleTime - Start > 1000)
-      {
-        Counter(output);
-      }
+      if(sampleTime - Start > 1)
+        {
+          for(int n = 0; n < 100; n++)
+            {
+              filter();
+              ref_hang_avg += feedback;
+            }
+          ref_hang_avg /= 100;
+          
+          if(output < ref_hang_avg - 15)
+            {
+              Serial.println("lähetetään");
+              Count++;
+              //Counter(output);
+            }
+        }
   }
-   
+      else
+      Start = 0;
+     
 Serial.print(Start);
 Serial.print("\t");
 Serial.print(output);
-//Serial.print("\t");
-//Serial.print(oldout);
 Serial.print("\t");
-Serial.println(sampleTime);
-//Serial.print("\t");
-//Serial.println(Count);
+Serial.print(ref_hang_avg);
+Serial.print("\t");
+Serial.print(sampleTime);
+Serial.print("\t");
+Serial.println(Count);
 
+  }
 
-
-}
+  
 int Counter(int value){
+
+  Count++;
   
   if(value > old_func_value * 1.2)
   {
@@ -106,14 +124,13 @@ int Counter(int value){
 void setup() {
 Serial.begin(38400);
 
-for(int n=0; n<100; n++)
+for(int n=0; n<150; n++)
 {
   filter();
   ref_rest_avg += feedback;
-  if(n==99) 
-    ref_rest_avg/100;
+
 }
-Serial.println(ref_rest_avg);
+ref_rest_avg = ref_rest_avg / 150;
 MsTimer2::set(sampling,measure);
 MsTimer2::start();
 pinMode(A0,INPUT);
