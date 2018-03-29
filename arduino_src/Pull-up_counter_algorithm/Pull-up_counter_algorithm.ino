@@ -47,37 +47,42 @@ if(output < ref_rest_avg - 50)
   {
     if(Start==0)
       {
-        Start = sampleTime;
-      }  
-      if(sampleTime - Start > 1)
+        Start = sampleTime;        
+      }
+    if(output>ref_hang_avg-5)
+        Flag=true;     
+    if(sampleTime - Start > 1)
+      {
+        if(ref_hang_avg==0)
         {
           for(int n = 0; n < 100; n++)
             {
               filter();
               ref_hang_avg += feedback;
             }
-          ref_hang_avg /= 100;
-          
-          if(output < ref_hang_avg - 15)
-            {
-              Serial.println("lähetetään");
-              Count++;
+          ref_hang_avg /= 100;  
+        }  
+                  
+        if(output < ref_hang_avg - 30 && Flag==true)
+          {
+            Count++;
+            Flag=false;
               //Counter(output);
-            }
-        }
+          }
+       }
   }
-      else
-      Start = 0;
-     
+else
+  {
+    Start = 0;
+    ref_hang_avg = 0;
+  }
+Serial.print(sampleTime);
+Serial.print("\t");
 Serial.print(Start);
 Serial.print("\t");
 Serial.print(output);
 Serial.print("\t");
-Serial.print(ref_hang_avg);
-Serial.print("\t");
-Serial.print(sampleTime);
-Serial.print("\t");
-Serial.println(Count);
+Serial.println(ref_hang_avg);
 
   }
 
