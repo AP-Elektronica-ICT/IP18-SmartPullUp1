@@ -48,9 +48,7 @@ if(output < ref_rest_avg - 50)
     if(Start==0)
       {
         Start = sampleTime;        
-      }
-    if(output>ref_hang_avg-5)
-        Flag=true;     
+      }    
     if(sampleTime - Start > 1)
       {
         if(ref_hang_avg==0)
@@ -60,14 +58,12 @@ if(output < ref_rest_avg - 50)
               filter();
               ref_hang_avg += feedback;
             }
-          ref_hang_avg /= 100;  
+          ref_hang_avg /= 100;
         }  
                   
-        if(output < ref_hang_avg - 30 && Flag==true)
+        if(output < ref_hang_avg - ref_hang_avg *0.05)
           {
-            Count++;
-            Flag=false;
-              //Counter(output);
+            Counter(output);
           }
        }
   }
@@ -78,23 +74,23 @@ else
   }
 Serial.print(sampleTime);
 Serial.print("\t");
-Serial.print(Start);
-Serial.print("\t");
+/*Serial.print(Start);
+Serial.print("\t");*/
 Serial.print(output);
 Serial.print("\t");
-Serial.println(ref_hang_avg);
+Serial.print(ref_hang_avg);
+Serial.print("\t");
+Serial.println(Count);
+
 
   }
 
   
 int Counter(int value){
-
-  Count++;
   
-  if(value > old_func_value * 1.2)
+  if(value > ref_hang_avg - ref_hang_avg * 0.08)
   {
     Flag=true;
-    old_func_value = value;
     return;
   }
   
@@ -102,26 +98,22 @@ int Counter(int value){
   {
     if(Flag==true)
     {
-      if(value < old_func_value * 0,8)
+      if(value < ref_hang_avg - ref_hang_avg * 0.1)
       {
         Count++;
         Flag = false;
-        old_func_value = value;
         return;
       }
       else
       {
-        old_func_value = value;
         return;
       }
     }
     else
     {
-      old_func_value = value;
       return;
     }
   }
-  old_func_value = value;
   return;
 }
 
