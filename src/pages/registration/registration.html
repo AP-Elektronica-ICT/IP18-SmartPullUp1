@@ -1,0 +1,25 @@
+<ion-header>
+  <spub-navbar pageTitle="Profile">
+  </spub-navbar>
+</ion-header>
+
+<ion-content padding class="registration">
+  <ion-card>
+    <img src="../../assets/imgs/logo.png" />
+  </ion-card>
+  <ion-list>
+    <ion-item>
+      <ion-label>E-mail</ion-label>
+      <ion-input type="email" name="username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input type="text" name="username"></ion-input>
+      </ion-item>
+    <ion-item>
+      <ion-label>password</ion-label>
+      <ion-input type="password" name="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button (click)="Register()">Register</button>
+</ion-content>

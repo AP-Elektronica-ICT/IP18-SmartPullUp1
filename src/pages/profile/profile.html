@@ -1,10 +1,46 @@
 <ion-header>
-    <spub-navbar pageTitle="Profile">
-    </spub-navbar>
-  </ion-header>
+  <spub-navbar pageTitle="Profile">
+  </spub-navbar>
+</ion-header>
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-content *ngIf="auth.isAuthenticated()">
+      <div>
+        <ion-card-title>
+          {{ user?.name ? user.name : 'Nameless' }}
+        </ion-card-title>
+        <ion-list>
+          <ion-item>
+            <ion-icon name="calendar" item-start></ion-icon>
+            <ion-label stacked>Birthdate</ion-label>
+            <ion-input type="text" placeholder="{{ user?.age }}">{{ user?.age}}</ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="ios-body" item-start></ion-icon>
+            <ion-label stacked>Weight</ion-label>
+            <ion-input type="text" placeholder="{{ user?.weight }}kg">{{ user?.weight }}</ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="md-star" item-start></ion-icon>
+            Record 10
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card-content *ngIf="!auth.isAuthenticated()">
+    <login *ngIf="!auth.isAuthenticated()"></login>
+  </ion-card-content>
+  <button ion-button full *ngIf="auth.isAuthenticated()" (click)="GoToRegistration()">Save</button>
 
-  <!-- App content here -->
-  
+  <div id='logout-container' *ngIf="auth.isAuthenticated()">
+    <button ion-button full color='danger' (click)="auth.logout()">Logout</button>
+  </div>
+
+
+
+
+  <!-- <pre class="full-profile">{{ auth.user | json }}</pre> -->
+
 </ion-content>

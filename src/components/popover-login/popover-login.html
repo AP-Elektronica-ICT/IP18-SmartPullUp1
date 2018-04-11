@@ -1,0 +1,10 @@
+<ion-list *ngIf="auth.isAuthenticated()">
+    <ion-list-header>Hey {{auth.user.given_name ? auth.user.given_name : 'you'}}!</ion-list-header>
+    <!-- <button ion-item (click)="navProfile()">View profile</button> -->
+    <button ion-item (click)="logout()">Logout</button>
+</ion-list>
+
+<ion-list *ngIf="!auth.isAuthenticated()">
+  <ion-list-header>Hey stranger!</ion-list-header>
+  <button ion-item (click)="login()">Login</button>
+</ion-list>
