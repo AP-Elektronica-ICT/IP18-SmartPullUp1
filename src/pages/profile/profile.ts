@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RegistrationPage } from '../registration/registration';
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { ApiService } from '../../services/ApiService';
 
@@ -17,14 +18,29 @@ import { ApiService } from '../../services/ApiService';
 })
 export class ProfilePage {
 
-  user : any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private api : ApiService) {
+
+  user: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private api: ApiService) {
   }
-  
+
   ionViewDidLoad() {
-    this.api.getUserById('test').then(data => {
-      this.user = data;
-    });
+   this.loadProfile();
+  }
+
+  ionViewWillEnter() {
+    this.loadProfile();
+  }
+
+ public loadProfile() {
+    if (this.auth.isAuthenticated()) {
+      let userId = this.auth.user.sub;
+      // console.log(userId);
+
+      this.api.getUserById(userId).then(data => {
+        this.user = data;
+      });
+      
+    }
     console.log('ionViewDidLoad ProfilePage');
   }
 }

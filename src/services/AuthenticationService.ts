@@ -20,7 +20,7 @@ export class AuthenticationService {
   auth0 = new Auth0.WebAuth(auth0Config);
   accessToken: string;
   idToken: string;
-  user: any;
+  public user: any;
 
   constructor(public zone: NgZone) {
     this.user = this.getStorageVariable('profile');
@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   private setStorageVariable(name, data) {
     window.localStorage.setItem(name, JSON.stringify(data));
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
   }
 
   private setIdToken(token) {
@@ -48,6 +48,9 @@ export class AuthenticationService {
 
   public isAuthenticated() {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+
+    // console.log(expiresAt);
+
     return Date.now() < expiresAt;
   }
 
@@ -59,7 +62,7 @@ export class AuthenticationService {
     };
 
     client.authorize(options, (err, authResult) => {
-      if(err) {
+      if (err) {
         throw err;
       }
 
@@ -67,10 +70,11 @@ export class AuthenticationService {
       this.setAccessToken(authResult.accessToken);
 
       const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+
       this.setStorageVariable('expires_at', expiresAt);
 
       this.auth0.client.userInfo(this.accessToken, (err, profile) => {
-        if(err) {
+        if (err) {
           throw err;
         }
 
@@ -78,6 +82,7 @@ export class AuthenticationService {
         this.setStorageVariable('profile', profile);
         this.zone.run(() => {
           this.user = profile;
+          console.log(this.user);
         });
       });
     });

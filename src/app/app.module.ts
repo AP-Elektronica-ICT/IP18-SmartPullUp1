@@ -17,6 +17,7 @@ import { ExercisePage } from '../pages/exercise/exercise';
 import { ProfilePage } from '../pages/profile/profile';
 import { FriendsPage } from '../pages/friends/friends';
 import { SchedulePage } from '../pages/schedule/schedule';
+import { RegistrationPage } from '../pages/registration/registration';
 import { SpubNavbarComponent } from '../components/spub-navbar/spub-navbar';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothService } from '../services/BluetoothService';
@@ -25,6 +26,7 @@ import { BLE } from '@ionic-native/ble';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
+import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
 
 
 @NgModule({
@@ -35,9 +37,11 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    RegistrationPage,
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
+    BluetoothConnectPage,
     TabsPage
   ],
   imports: [
@@ -54,9 +58,11 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
     ProfilePage,
     FriendsPage,
     SchedulePage,
+    RegistrationPage,
     SpubNavbarComponent,
     PopoverLoginComponent,
     LoginComponent,
+    BluetoothConnectPage,
     TabsPage
   ],
   providers: [

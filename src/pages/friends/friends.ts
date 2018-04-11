@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BluetoothService } from '../../services/BluetoothService';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthenticationService } from '../../services/AuthenticationService';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 
 
@@ -19,24 +19,16 @@ import { AuthenticationService } from '../../services/AuthenticationService';
 })
 export class FriendsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bluetooth: BluetoothService, private auth: AuthenticationService) {
-    
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService) {
+
   }
 
   ionViewDidLoad() {
-   
+
   }
 
-  startScanning() {
-    this.bluetooth.scanForDevices();
-  }
+  
 
-  connectDevice(address: any) {
-    this.bluetooth.connectDevice(address);
-  }
-
-  disconnectDevice(){
-    this.bluetooth.disconnectDevice();
-  }
- 
 }

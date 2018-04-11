@@ -8,7 +8,7 @@ export class ApiService {
     public getUserById(id: string)
     {
         return new Promise(resolve => {
-            this._http.get('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/user/hjkdh32jhjfshjdsfk')
+            this._http.get('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/user/' + id)
               .subscribe(data => {
                 resolve(data);
               });
