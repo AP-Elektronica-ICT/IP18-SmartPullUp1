@@ -12,22 +12,16 @@
       <circle-progress align="center" [percent]="percent" [radius]="75" [outerStrokeWidth]="10" [innerStrokeWidth]="10" [outerStrokeColor]="'#4882c2'"
         [innerStrokeColor]="'#e7e8ea'" [animation]="false" [animationDuration]="300" [title]='title' [showUnits]='false' [showSubtitle]='Pull-ups'
         [space]='-10'></circle-progress>
-      <ion-label class='time-label' relative>time: {{timeStampString}}</ion-label>
-
+      <ion-label class='time-label' relative>Time: {{timeStampString}}</ion-label>
+      <ion-label class='time-label' relative>Avg Speed: {{avgSpeed}}</ion-label>
     </ion-card-content>
   </ion-card>
 
 
-  <div class="button-container" *ngIf="isConnected || NOBLUETOOTH">
+
     <button class="start" ion-button round color="prettyblue" (click)="startPause()">{{buttState}}</button>
     <button class="stop" ion-button round color="prettyblue" (click)="stopped()">Stop</button>
-  </div>
-  <div class="button-container" *ngIf="!isConnected && !NOBLUETOOTH">
-    <button ion-button block color="prettyblue" (click)="showBluetoothList()">Scan for smart pull-up bar</button>
-    <br>
-  </div>
-  <div class="button-container" *ngIf="NOBLUETOOTH">
-    <button ion-button block color="dark" (click)="count()">PULL UP!</button>
-  </div>
+
+  
 
 </ion-content>
