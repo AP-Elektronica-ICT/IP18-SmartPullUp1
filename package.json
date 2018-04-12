@@ -37,6 +37,7 @@
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^2.0.1",
+    "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-ionic": "^3.1.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
@@ -80,7 +81,11 @@
       "cordova-plugin-ble-central": {
         "BLUETOOTH_USAGE_DESCRIPTION": " "
       },
-      "cordova-plugin-statusbar": {}
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "207336980042134",
+        "APP_NAME": "Smart Pull-Up Bar"
+      }
     },
     "platforms": [
       "ios",
