@@ -1,6 +1,10 @@
 ion-card-title {
     text-align: center;
 }
+ion-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #000;
+    opacity: 1; /* Firefox */
+}
 
 #logout-container {
     bottom: 5%;
