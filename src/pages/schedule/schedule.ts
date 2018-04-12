@@ -15,12 +15,31 @@ import { AuthenticationService } from '../../services/AuthenticationService';
   templateUrl: 'schedule.html',
 })
 export class SchedulePage {
+  eventSource = [];
+  viewTitle: string;
+  selectedDay = new Date();
 
+  calendar = {
+    mode: 'month',
+    currentDate: this.selectedDay
+  }
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchedulePage');
+  }
+
+  onViewTitleChanged(title){
+
+  }
+
+  onTimeSelected(ev) {
+
+  }
+
+  onEventSelected(event){
+    
   }
 
 }
