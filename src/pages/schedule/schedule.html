@@ -1,6 +1,14 @@
 <ion-header>
-  <spub-navbar pageTitle="Schedule">
-  </spub-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+          {{ viewTitle }}
+        </ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only (click)="addEvent()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -12,6 +20,7 @@
   (onEventSelected)="onEventSelected($event)"
   (onTitleChanged)="onViewTitleChanged($event)"
   (onTimeSelected)="onTimeSelected($event)"
-  step="30">
+  step="30"
+  class="calendar">
   </calendar>
 </ion-content>

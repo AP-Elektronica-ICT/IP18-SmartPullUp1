@@ -1,5 +1,5 @@
 {
-  "name": "SPUB",
+  "name": "spub",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -88,5 +88,14 @@
       "android",
       "browser"
     ]
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AP-Elektronica-ICT/IP18-SmartPullUp1.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AP-Elektronica-ICT/IP18-SmartPullUp1/issues"
   }
 }

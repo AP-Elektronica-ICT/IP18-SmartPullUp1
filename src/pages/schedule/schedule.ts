@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthenticationService } from '../../services/AuthenticationService';
+import * as moment from 'moment';
 
 /**
  * Generated class for the SchedulePage page.
@@ -30,16 +31,22 @@ export class SchedulePage {
     console.log('ionViewDidLoad SchedulePage');
   }
 
-  onViewTitleChanged(title){
+  addEvent(){
 
+  }
+  onViewTitleChanged(title){
+    this.viewTitle = title;
   }
 
   onTimeSelected(ev) {
-
+    this.selectedDay = ev.selectedTime;
   }
 
   onEventSelected(event){
-    
+
+  }
+
+  onCurrentDateChanged(event){
   }
 
 }
