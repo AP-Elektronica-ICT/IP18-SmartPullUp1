@@ -28,6 +28,7 @@ export class EventModalPage {
   }
  
   save() {
+    //save event to db
     this.viewCtrl.dismiss(this.event);
   }
 

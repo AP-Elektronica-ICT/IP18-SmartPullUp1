@@ -14,4 +14,9 @@ export class ApiService {
               });
         });
     }
+
+    public insertPullupSession(id: string, timestamp: number, duration: number, avgspeed: number, weight: number, completion: number, goal: number ){
+        let data = 'userid='+id+'&timestamp='+String(timestamp)+'&duration='+String(duration)+'&avgspeed='+String(avgspeed)+'&weight='+String(weight)+'&completion='+String(completion)+'&goal='+String(goal);
+        this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/pullups/', data);
+    }
 }
