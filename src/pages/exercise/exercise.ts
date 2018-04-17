@@ -161,8 +161,7 @@ export class ExercisePage {
   }
 
   SendToDatabase(totalPullUps) {
-
-    this.api.insertPullupSession(this.userId, Date.now(), this.timeStamp, this.avgSpeed, 68.5, this.percent, this.goal )
+    this.api.insertPullupSession('google-oauth2|116967247859714699456', Date.now(), this.timeStamp, this.avgSpeed, 68.5, this.percent, this.goal )
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }
