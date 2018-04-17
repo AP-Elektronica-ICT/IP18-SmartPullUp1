@@ -41,7 +41,7 @@ export class ExercisePage {
   private bluetoothModal: Modal;
 
 
-  private NOBLUETOOTH = true;
+  private NOBLUETOOTH = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController, private api: ApiService, private auth: AuthenticationService) {
     // this.pullupArray = this.json.getData()
@@ -57,6 +57,8 @@ export class ExercisePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExercisePage');
     this.loadProfile();
+  }
+
   public setConnected() {
     this.isConnected = true;
     this.bluetooth.subscribe('}').subscribe((data) => {
@@ -99,8 +101,6 @@ export class ExercisePage {
     this.pullUpCounter++;
     this.title = this.pullUpCounter + "/" + this.goal;
     this.percent = this.pullUpCounter / this.goal * 100;
-    this.avgSpeed = String((this.timeStamp / this.pullUpCounter/ 10).toFixed(1));
-    console.log(this.avgSpeed);
     if (this.percent >= 100) {
       this.running = false;
       this.showFinishedAlert();
@@ -142,13 +142,14 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
+        this.avgSpeed = String((this.timeStamp / this.pullUpCounter/ 10).toFixed(1));
         this.checkPullUps();
       }
     }, 100);
   }
 
   public stopped() {
-    this.SendToDatabase();
+    this.SendToDatabase(this.pullUpCounter);
     this.running = false;
     this.buttState = "Start";
     this.timeStamp = 0;
