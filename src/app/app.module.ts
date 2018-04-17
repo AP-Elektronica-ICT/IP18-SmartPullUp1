@@ -27,6 +27,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
 import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
+import { Facebook } from '@ionic-native/facebook';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
     BLE,
     JsonService,
     ApiService,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
