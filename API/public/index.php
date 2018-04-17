@@ -3,8 +3,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
-
-$app = new \Slim\App;
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+$app = new \Slim\App($c);
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
@@ -19,6 +24,7 @@ $app->add(function ($req, $res, $next) {
 
 require_once('../app/user.php');
 require_once('../app/useredit.php');
+require_once('../app/pullupS.php');
 //require_once('../app/users.php');
 
 $app->run();
