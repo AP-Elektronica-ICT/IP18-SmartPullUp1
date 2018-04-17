@@ -27,12 +27,14 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
 import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
+import { ProgressSessionPage } from '../pages/progress-session/progress-session';
 
 
 @NgModule({
   declarations: [
     MyApp,
     ProgressPage,
+    ProgressSessionPage,
     ExercisePage,
     ProfilePage,
     FriendsPage,
@@ -54,6 +56,7 @@ import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-conne
   entryComponents: [
     MyApp,
     ProgressPage,
+    ProgressSessionPage,
     ExercisePage,
     ProfilePage,
     FriendsPage,
