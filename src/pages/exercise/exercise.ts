@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, Modal } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { JsonService, DummyData } from '../../services/JsonService';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
+import { ApiService } from '../../services/ApiService';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
 
 @IonicPage()
@@ -23,22 +25,25 @@ export class ExercisePage {
   private timeStampString = "0";
   private buttState = "Start";
   private running = false;
+  private avgSpeed:any;
 
   private title = this.pullUpCounter + "/" + this.goal;
   private pullupArrayIterator = 0;
 
 
   private pullupArray: DummyData;
-  private isConnected = false;
+  public isConnected = false;
 
   private unpairedDevices: any;
   private pairedDevices: any;
   private loader: any;
+  private userId: any;
+  private bluetoothModal: Modal;
 
 
   private NOBLUETOOTH = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController, private api: ApiService, private auth: AuthenticationService) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
 
@@ -51,11 +56,45 @@ export class ExercisePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExercisePage');
+    this.loadProfile();
+  }
+
+  public setConnected() {
+    this.isConnected = true;
+    this.bluetooth.subscribe('}').subscribe((data) => {
+      this.handleBluetooth(data);
+    })
+  }
+
+  public loadProfile() {
+    if (this.auth.isAuthenticated()) {
+      this.userId = this.auth.user.sub;
+      // console.log(userId);
+      
+    }
+  }
+
+
+  public handleBluetooth(data: any) {
+    let pullupData: PullUpInt = JSON.parse(data);
+    // console.log(pullupData);
+    switch (pullupData.type) {
+      case 'Measurement':
+        if (this.running) {
+          console.log('Pull-up detected: ' + JSON.stringify(pullupData));
+          this.count();
+        }
+        break;
+      default:
+        console.log('False data: ');
+        console.log(data);
+    }
+    // console.log(JSON.stringify(data));
   }
 
   public showBluetoothList() {
-    let modal = this.modCtrl.create(BluetoothConnectPage);
-    modal.present();
+    this.bluetoothModal = this.modCtrl.create(BluetoothConnectPage, { parent: this });
+    this.bluetoothModal.present();
   }
 
   public count() {
@@ -103,6 +142,7 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
+        this.avgSpeed = String((this.timeStamp / this.pullUpCounter/ 10).toFixed(1));
         this.checkPullUps();
       }
     }, 100);
@@ -125,11 +165,12 @@ export class ExercisePage {
 
 
   public checkPullUps() {
-    this.bluetooth.read().then((success) => {
-      if(this.running)
-        this.count();
-        
-      console.log(JSON.parse(success));
+    this.bluetooth.readUntil('}').then((success) => {
+      // if(this.running && success != '')
+      // this.count();
+
+      // console.log(success)
+      // console.log(JSON.parse(success));
     }, (failed) => {
       console.log("Failed to read bluetooth data");
     });
@@ -145,14 +186,15 @@ export class ExercisePage {
   }
 
   SendToDatabase(totalPullUps) {
+    this.api.insertPullupSession('google-oauth2|116967247859714699456', Date.now(), this.timeStamp, this.avgSpeed, 68.5, this.percent, this.goal )
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }
 
 export interface PullUpInt {
-  Type: string;
+  type: string;
+  start: number;
   up: number;
-  down: number;
 }
 
 export interface DummyData {

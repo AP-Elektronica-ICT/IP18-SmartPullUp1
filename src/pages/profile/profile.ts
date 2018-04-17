@@ -34,7 +34,7 @@ export class ProfilePage {
  public loadProfile() {
     if (this.auth.isAuthenticated()) {
       let userId = this.auth.user.sub;
-      // console.log(userId);
+      console.log(userId);
 
       this.api.getUserById(userId).then(data => {
         this.user = data;
@@ -43,4 +43,5 @@ export class ProfilePage {
     }
     console.log('ionViewDidLoad ProfilePage');
   }
+  
 }

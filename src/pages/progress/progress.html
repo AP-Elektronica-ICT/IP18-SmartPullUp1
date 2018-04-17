@@ -5,7 +5,9 @@
 
 <ion-content padding>
 
-  <!-- App content here -->
-  <login *ngIf="!auth.isAuthenticated()"></login>
-
+<ion-list>
+  <button ion-item *ngFor="let item of items" (click)="listClicked(item)">
+    {{ item }}
+  </button>  
+</ion-list>
 </ion-content>
