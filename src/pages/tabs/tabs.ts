@@ -18,7 +18,10 @@ export class TabsPage {
   tab4Root = FriendsPage;
   tab5Root = ProfilePage;
 
+  public selectedPage = 2;
+
   constructor() {
 
   }
+
 }

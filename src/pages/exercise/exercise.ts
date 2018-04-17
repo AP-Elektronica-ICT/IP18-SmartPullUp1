@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, Modal } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { JsonService, DummyData } from '../../services/JsonService';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 
 
 @IonicPage()
@@ -12,51 +14,82 @@ import { JsonService, DummyData } from '../../services/JsonService';
 })
 
 export class ExercisePage {
-  percent = 0;
-  pullUpCounter = 0;
-  goal = 7;
-  pullUpsLabel = "Pull-Ups";
-  timeStamp = 0;
-  timeStampString = "0";
-  buttState = "Start";
-  loop = false;
   public PageTitle = 'Exercise';
-  title = this.pullUpCounter + "/" + this.goal;
-  i =0;
+  private percent = 0;
+  private pullUpCounter = 0;
+  private goal = 20;
+  private pullUpsLabel = "Pull-Ups";
+  private timeStamp = 0;
+  private timeStampString = "0";
+  private buttState = "Start";
+  private running = false;
+
+  private title = this.pullUpCounter + "/" + this.goal;
+  private pullupArrayIterator = 0;
 
 
-  pullupArray: DummyData;
+  private pullupArray: DummyData;
+  public isConnected = false;
+
+  private unpairedDevices: any;
+  private pairedDevices: any;
+  private loader: any;
+  private bluetoothModal: Modal;
 
 
+  private NOBLUETOOTH = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private service: JsonService) {
-    this.pullupArray = this.service.getData()
-    this.goal = this.pullupArray.array.length;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
+    // this.pullupArray = this.json.getData()
+    // this.goal = this.pullupArray.array.length;
+
+    bluetooth.isConnected().then((yes) => {
+      this.isConnected = true;
+    }, (no) => {
+      this.isConnected = false;
+    });
   }
 
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ExercisePage');
+  public setConnected() {
+    this.isConnected = true;
+    this.bluetooth.subscribe('}').subscribe((data) => {
+      this.handleBluetooth(data);
+    })
   }
 
-  profileClicked() {
-    console.log("Profile clicked!");
+  public handleBluetooth(data: any) {
+    let pullupData: PullUpInt = JSON.parse(data);
+    // console.log(pullupData);
+    switch (pullupData.type) {
+      case 'Measurement':
+        if (this.running) {
+          console.log('Pull-up detected: ' + JSON.stringify(pullupData));
+          this.count();
+        }
+        break;
+      default:
+        console.log('False data: ');
+        console.log(data);
+    }
+    // console.log(JSON.stringify(data));
   }
 
+  public showBluetoothList() {
+    this.bluetoothModal = this.modCtrl.create(BluetoothConnectPage, { parent: this });
+    this.bluetoothModal.present();
+  }
 
-  public Count() {
+  public count() {
     this.pullUpCounter++;
     this.title = this.pullUpCounter + "/" + this.goal;
     this.percent = this.pullUpCounter / this.goal * 100;
-    if (this.percent == 100) {
-    this.loop= false;
-      this.showAlert();
+    if (this.percent >= 100) {
+      this.running = false;
+      this.showFinishedAlert();
     }
-
   }
 
-  public showAlert() {
+  public showFinishedAlert() {
     let alert = this.alertCtrl.create({
       title: 'Complete!',
       subTitle: 'Nice one! you did ' + this.goal + ' Pull-ups!',
@@ -70,24 +103,24 @@ export class ExercisePage {
       ]
     });
     alert.present();
-    this.timerClicked();
+    this.startPause();
   }
 
-  public timerClicked() {
+  public startPause() {
     if (this.buttState == "Start") {
       this.buttState = "Pause";
       this.title = this.pullUpCounter + "/" + this.goal;
-      this.loop = true;
+      this.running = true;
     } else {
       this.buttState = "Start";
-      this.loop = false;
+      this.running = false;
     }
     this.timer();
   }
 
   public timer() {
     setTimeout(() => {
-      if (this.loop) {
+      if (this.running) {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
@@ -98,7 +131,7 @@ export class ExercisePage {
 
   public stopped() {
     this.SendToDatabase();
-    this.loop = false;
+    this.running = false;
     this.buttState = "Start";
     this.timeStamp = 0;
     this.timeStampString = "0";
@@ -113,23 +146,33 @@ export class ExercisePage {
 
 
   public checkPullUps() {
+    this.bluetooth.readUntil('}').then((success) => {
+      // if(this.running && success != '')
+      // this.count();
 
-    if(this.pullupArray.array[this.i].down == this.timeStamp/10){
-      this.Count();
-      if(this.pullupArray.array.length){
-        this.i++;
+      // console.log(success)
+      // console.log(JSON.parse(success));
+    }, (failed) => {
+      console.log("Failed to read bluetooth data");
+    });
+    /*
+    if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
+      this.count();
+      if (this.pullupArray.array.length) {
+        this.pullupArrayIterator++;
       }
 
-    }   
+    }
+    */
   }
 
-  SendToDatabase(){
-    var PullupJson = { 
+  SendToDatabase() {
+    var PullupJson = {
       "UID": 2,
-      "Pullups": this.pullUpCounter, 
+      "Pullups": this.pullUpCounter,
       "Time": this.timeStamp,
       "Date": Date.now()
-  }; 
+    };
 
     console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
 
@@ -137,9 +180,9 @@ export class ExercisePage {
 }
 
 export interface PullUpInt {
-  Type: string;
+  type: string;
+  start: number;
   up: number;
-  down: number;
 }
 
 export interface DummyData {

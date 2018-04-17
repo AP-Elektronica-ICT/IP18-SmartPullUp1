@@ -1,11 +1,11 @@
 <ion-header>
-    <spub-navbar pageTitle="Social">
-    </spub-navbar>
-  </ion-header>
-
+  <spub-navbar pageTitle="Progress">
+  </spub-navbar>
+</ion-header>
 
 <ion-content padding>
 
   <!-- App content here -->
-  
+  <login *ngIf="!auth.isAuthenticated()"></login>
+
 </ion-content>

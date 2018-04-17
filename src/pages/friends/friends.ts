@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AuthenticationService } from '../../services/AuthenticationService';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+
+
 
 /**
  * Generated class for the FriendsPage page.
@@ -15,11 +19,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FriendsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FriendsPage');
+
   }
+
+  
 
 }
