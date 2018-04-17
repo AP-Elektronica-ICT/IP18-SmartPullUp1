@@ -27,6 +27,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from '../components/login/login';
 import { PopoverLoginComponent } from '../components/popover-login/popover-login';
 import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
+import { NgCalendarModule  } from 'ionic2-calendar';
 import { ProgressSessionPage } from '../pages/progress-session/progress-session';
 
 
@@ -50,7 +51,8 @@ import { ProgressSessionPage } from '../pages/progress-session/progress-session'
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    NgCircleProgressModule.forRoot({})
+    NgCircleProgressModule.forRoot({}),
+    NgCalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
