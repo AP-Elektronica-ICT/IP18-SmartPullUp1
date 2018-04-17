@@ -26,14 +26,14 @@ void BufferCreator(){
     DynamicJsonBuffer jsonBuffer(bufferSize);
     JsonObject& root = jsonBuffer.createObject();
     root["type"] = "Measurement";
-    root["up"] = Timerino/1000;
-    root["down"] = Timerino/1000 + random(1,2); // this just randomises the down time so there is slight variation. don't press the button too fast or otherwize
+    root["start"] = Timerino/1000;
+    root["up"] = Timerino/1000 + random(1,2); // this just randomises the down time so there is slight variation. don't press the button too fast or otherwize
     root.printTo(output);                       // the downtime might be later than the beginning of the next pull up 
   }
 }
 
 void sendData() {
-  //Bluetooth.print(output);
+  Bluetooth.print(output);
   Serial.println(output);
   output="";
 }
