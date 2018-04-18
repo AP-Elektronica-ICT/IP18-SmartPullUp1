@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 
 @Injectable()
 export class ApiService {
@@ -16,6 +16,8 @@ export class ApiService {
     }
 
     public insertPullupSession(id: string, amount : number, timestamp: number, duration: number, avgspeed: number, weight: number, completion: number, goal: number ){
+
+        let options = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
         let data = {
             'userid' : id,
             'timestamp' : String(timestamp),
@@ -26,6 +28,6 @@ export class ApiService {
             'completion' : String(completion),
             'goal' : String(goal)
         }
-        this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/pullups/', data);
+        this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/pullups', data, options);
     }
 }

@@ -41,7 +41,7 @@ export class ExercisePage {
   private bluetoothModal: Modal;
 
 
-  private NOBLUETOOTH = false;
+  private NOBLUETOOTH = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController, private api: ApiService, private auth: AuthenticationService) {
     // this.pullupArray = this.json.getData()
@@ -186,7 +186,7 @@ export class ExercisePage {
   }
 
   SendToDatabase(totalPullUps) {
-    this.api.insertPullupSession('google-oauth2|116967247859714699456', Date.now(), this.timeStamp, this.avgSpeed, 68.5, this.percent, this.goal )
+    this.api.insertPullupSession('google-oauth2|116967247859714699456', totalPullUps, this.timeStamp, 20, this.avgSpeed, 68, this.percent, this.goal );
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }

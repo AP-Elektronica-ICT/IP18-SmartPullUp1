@@ -25,6 +25,6 @@ $app->add(function ($req, $res, $next) {
 require_once('../app/user.php');
 require_once('../app/useredit.php');
 require_once('../app/pullupS.php');
-//require_once('../app/users.php');
+require_once('../app/users.php');
 
 $app->run();
