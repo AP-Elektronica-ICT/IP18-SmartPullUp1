@@ -43,7 +43,12 @@ export class ExercisePage {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
 
-    bluetooth.isConnected().then((yes) => {
+    this.checkConnection();
+    setInterval(this.checkConnection(), 5000);
+  }
+
+  public checkConnection() {
+    this.bluetooth.isConnected().then((yes) => {
       this.isConnected = true;
     }, (no) => {
       this.isConnected = false;
