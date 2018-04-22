@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ion
 import { AlertController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
+import { ApiService } from '../../services/ApiService';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
 
 @IonicPage()
@@ -21,6 +23,7 @@ export class ExercisePage {
   private weightString = "";
   private buttState = "Start";
   private running = false;
+  private avgSpeed:any;
 
   private title = this.pullUpCounter + "/" + this.goal;
 
@@ -50,21 +53,16 @@ export class ExercisePage {
     });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ExercisePage');
+    this.loadProfile();
+  }
+
   public setConnected() {
     this.isConnected = true;
     this.bluetooth.subscribe('}').subscribe((data) => {
       this.handleBluetooth(data);
     })
-  }
-
-  public setDisconnected() {
-    this.isConnected = false;
-    this.bluetooth.clear().then((yes) => {
-      console.log('Cleared bluetooth buffer');
-    });
-    this.bluetooth.disconnect().then((yes) => {
-      console.log("Disconnected")
-    });
   }
 
   public handleBluetooth(data: any) {
@@ -138,12 +136,13 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
+        this.checkPullUps();
       }
     }, 100);
   }
 
   public stopped() {
-    this.SendToDatabase();
+    this.SendToDatabase(this.pullUpCounter);
     this.running = false;
     this.buttState = "Start";
     this.timeStamp = 0;
@@ -157,6 +156,28 @@ export class ExercisePage {
 
   //This is Dummydata code plis no judgy en delete when real data is hier
 
+
+  public checkPullUps() {
+    this.bluetooth.readUntil('}').then((success) => {
+      // if(this.running && success != '')
+      // this.count();
+
+      // console.log(success)
+      // console.log(JSON.parse(success));
+    }, (failed) => {
+      console.log("Failed to read bluetooth data");
+    });
+    /*
+    if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
+      this.count();
+      if (this.pullupArray.array.length) {
+        this.pullupArrayIterator++;
+      }
+
+    }
+    */
+  }
+
   SendToDatabase() {
     var PullupJson = {
       "UID": 2,
@@ -167,6 +188,13 @@ export class ExercisePage {
 
     console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
 
+  }
+    this.api.insertPullupSession(data).then((result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
+    console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }
 
