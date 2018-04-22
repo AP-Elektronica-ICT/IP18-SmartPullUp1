@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { JsonService, DummyData } from '../../services/JsonService';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 
@@ -9,8 +8,7 @@ import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 @IonicPage()
 @Component({
   selector: 'page-exercise',
-  templateUrl: 'exercise.html',
-  providers: [JsonService]
+  templateUrl: 'exercise.html'
 })
 
 export class ExercisePage {
@@ -18,44 +16,81 @@ export class ExercisePage {
   private percent = 0;
   private pullUpCounter = 0;
   private goal = 20;
-  private pullUpsLabel = "Pull-Ups";
   private timeStamp = 0;
   private timeStampString = "0";
+  private weightString = "";
   private buttState = "Start";
   private running = false;
 
   private title = this.pullUpCounter + "/" + this.goal;
-  private pullupArrayIterator = 0;
+
+  public isConnected = false;
+  
+  private bluetoothModal: Modal;
 
 
-  private pullupArray: DummyData;
-  private isConnected = false;
+  // private NOBLUETOOTH = true;
 
-  private unpairedDevices: any;
-  private pairedDevices: any;
-  private loader: any;
-
-
-  private NOBLUETOOTH = false;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
+  }
+  
+  ionViewWillEnter() {
+    this.checkConnection();
+  }
 
-    bluetooth.isConnected().then((yes) => {
+  checkConnection() {
+    this.bluetooth.isConnected().then((yes) => {
       this.isConnected = true;
+      console.log(yes);
     }, (no) => {
       this.isConnected = false;
+      console.log(no);
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ExercisePage');
+  public setConnected() {
+    this.isConnected = true;
+    this.bluetooth.subscribe('}').subscribe((data) => {
+      this.handleBluetooth(data);
+    })
+  }
+
+  public setDisconnected() {
+    this.isConnected = false;
+    this.bluetooth.clear().then((yes) => {
+      console.log('Cleared bluetooth buffer');
+    });
+    this.bluetooth.disconnect().then((yes) => {
+      console.log("Disconnected")
+    });
+  }
+
+  public handleBluetooth(data: any) {
+    let pullupData = JSON.parse(data);
+    // console.log(pullupData);
+    switch (pullupData.Type) {
+      case 'Initial':
+        this.weightString = pullupData.Weight;
+      break;
+      case 'Measurement':
+        if (this.running) {
+          console.log('Pull-up detected: ' + JSON.stringify(pullupData));
+          this.count();
+        }
+        break;
+      default:
+        console.log('False data: ');
+        console.log(data);
+        break;
+    }
+    // console.log(JSON.stringify(data));
   }
 
   public showBluetoothList() {
-    let modal = this.modCtrl.create(BluetoothConnectPage);
-    modal.present();
+    this.bluetoothModal = this.modCtrl.create(BluetoothConnectPage, { parent: this });
+    this.bluetoothModal.present();
   }
 
   public count() {
@@ -103,13 +138,12 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        this.checkPullUps();
       }
     }, 100);
   }
 
   public stopped() {
-    this.SendToDatabase(this.pullUpCounter);
+    this.SendToDatabase();
     this.running = false;
     this.buttState = "Start";
     this.timeStamp = 0;
@@ -123,36 +157,27 @@ export class ExercisePage {
 
   //This is Dummydata code plis no judgy en delete when real data is hier
 
+  SendToDatabase() {
+    var PullupJson = {
+      "UID": 2,
+      "Pullups": this.pullUpCounter,
+      "Time": this.timeStamp,
+      "Date": Date.now()
+    };
 
-  public checkPullUps() {
-    this.bluetooth.read().then((success) => {
-      if(this.running)
-        this.count();
-        
-      console.log(JSON.parse(success));
-    }, (failed) => {
-      console.log("Failed to read bluetooth data");
-    });
-    /*
-    if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
-      this.count();
-      if (this.pullupArray.array.length) {
-        this.pullupArrayIterator++;
-      }
+    console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
 
-    }
-    */
-  }
-
-  SendToDatabase(totalPullUps) {
-    console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }
 
+export interface InitInt {
+  Type: string;
+  Weight: number;
+}
 export interface PullUpInt {
   Type: string;
-  up: number;
-  down: number;
+  Start: number;
+  Up: number;
 }
 
 export interface DummyData {

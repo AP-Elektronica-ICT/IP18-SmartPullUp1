@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ViewController, ToastController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { ExercisePage } from '../exercise/exercise';
 
 /**
  * Generated class for the BluetoothConnectPage page.
@@ -23,10 +24,12 @@ export class BluetoothConnectPage {
   public isConnected: boolean;
   public bluetoothAddress: string;
   private loader: any;
+  private parent: ExercisePage;
 
   public BTDEBUG = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+   this.parent = navParams.get('parent');
   }
 
   ionViewDidLoad() {
@@ -76,12 +79,46 @@ export class BluetoothConnectPage {
     this.showConnectingPopup();
     this.bluetooth.connect(address).subscribe((data) => {
       console.log(data);
+      this.isConnected = true;
       this.loader.dismiss();
+      this.viewCtrl.dismiss();
+      this.showConnected();
+      this.parent.setConnected();
     }, (err) => {
       this.loader.dismiss();
+      this.showDisconnected();
+      this.parent.setDisconnected();
       console.log("connecting to bluetooth device failed");
     });
 
+  }
+
+  showConnected() {
+    let toast = this.toastCtrl.create({
+      message: 'Success!',
+      duration: 2000,
+      position: 'middle'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
+  showDisconnected() {
+    let toast = this.toastCtrl.create({
+      message: 'Disconnected!',
+      duration: 2000,
+      position: 'middle'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 
 }
