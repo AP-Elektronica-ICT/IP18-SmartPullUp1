@@ -1,18 +1,22 @@
 <?php
 $app->post('/pullups', function($request, $response, $args){
     $collection = (new MongoDB\Client)->smartpullupbar->users;
-    $postVars = $request->getParsedBody();
-    $pullupS = array('$set' => array($postVars['timestamp'] => [
-        "amount" => $postVars['amount'],
-        "duration" => $postVars['duration'],
-        "avgspeed" => $postVars['avgspeed'],
-        "weight" => $postVars['weight'],
-        "completion" => $postVars['completion'],
-        "goal" => $postVars['goal']
-    ]));
-//    try {
-//        $collection->updateOne(array("userid" => $id), $pullupS);
-//    } catch (Exeception $e) {
-//        var_dump($e);
-//    }
+    $allVars = $request->getParsedBody();
+    $pullupS = array('$addToSet' => array( 'pullups' => [ 
+        "timestamp" => (int)$allVars['timestamp'],
+        "amount" => (int)$allVars['amount'],
+        "duration" => (int)$allVars['duration'],
+        "avgspeed" => (int)$allVars['avgspeed'],
+        "weight" => (int)$allVars['weight'],
+        "completion" => (int)$allVars['completion'],
+        "goal" => (int)$allVars['goal']
+        ]));
+    var_dump($allVars);
+    var_dump($pullupS);
+    try {
+        $collection->updateOne(array("userid" => $allVars['userid']), $pullupS);
+        echo "data is verstuurd";
+    } catch (Exeception $e) {
+        var_dump($e);
+    }
 });

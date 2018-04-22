@@ -15,19 +15,16 @@ export class ApiService {
         });
     }
 
-    public insertPullupSession(id: string, amount : number, timestamp: number, duration: number, avgspeed: number, weight: number, completion: number, goal: number ){
+    public insertPullupSession(data){
+        let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-        let options = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
-        let data = {
-            'userid' : id,
-            'timestamp' : String(timestamp),
-            'amount' : String(amount),
-            'duration' : String(duration),
-            'avgspeed' : String(avgspeed),
-            'weight' : String(weight),
-            'completion' : String(completion),
-            'goal' : String(goal)
-        }
-        this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/pullups', data, options);
+        return new Promise((resolve, reject) => {
+            this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/pullups', JSON.stringify(data),options)
+              .subscribe(res => {
+                resolve(res);
+              }, (err) => {
+                reject(err);
+              });
+          });
     }
 }
