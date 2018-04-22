@@ -86,6 +86,8 @@ export class BluetoothConnectPage {
       this.parent.setConnected();
     }, (err) => {
       this.loader.dismiss();
+      this.showDisconnected();
+      this.parent.setDisconnected();
       console.log("connecting to bluetooth device failed");
     });
 
@@ -94,7 +96,21 @@ export class BluetoothConnectPage {
   showConnected() {
     let toast = this.toastCtrl.create({
       message: 'Success!',
-      duration: 3000,
+      duration: 2000,
+      position: 'middle'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
+  showDisconnected() {
+    let toast = this.toastCtrl.create({
+      message: 'Disconnected!',
+      duration: 2000,
       position: 'middle'
     });
   

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, Modal } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { JsonService, DummyData } from '../../services/JsonService';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 
@@ -9,8 +8,7 @@ import { BluetoothConnectPage } from '../bluetooth-connect/bluetooth-connect';
 @IonicPage()
 @Component({
   selector: 'page-exercise',
-  templateUrl: 'exercise.html',
-  providers: [JsonService]
+  templateUrl: 'exercise.html'
 })
 
 export class ExercisePage {
@@ -18,40 +16,37 @@ export class ExercisePage {
   private percent = 0;
   private pullUpCounter = 0;
   private goal = 20;
-  private pullUpsLabel = "Pull-Ups";
   private timeStamp = 0;
   private timeStampString = "0";
+  private weightString = "";
   private buttState = "Start";
   private running = false;
 
   private title = this.pullUpCounter + "/" + this.goal;
-  private pullupArrayIterator = 0;
 
-
-  private pullupArray: DummyData;
   public isConnected = false;
-
-  private unpairedDevices: any;
-  private pairedDevices: any;
-  private loader: any;
+  
   private bluetoothModal: Modal;
 
 
-  private NOBLUETOOTH = false;
+  // private NOBLUETOOTH = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private json: JsonService, private bluetooth: BluetoothSerial, private loadingCtrl: LoadingController, private modCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
-
+  }
+  
+  ionViewWillEnter() {
     this.checkConnection();
-    setInterval(this.checkConnection(), 5000);
   }
 
-  public checkConnection() {
+  checkConnection() {
     this.bluetooth.isConnected().then((yes) => {
       this.isConnected = true;
+      console.log(yes);
     }, (no) => {
       this.isConnected = false;
+      console.log(no);
     });
   }
 
@@ -62,10 +57,23 @@ export class ExercisePage {
     })
   }
 
+  public setDisconnected() {
+    this.isConnected = false;
+    this.bluetooth.clear().then((yes) => {
+      console.log('Cleared bluetooth buffer');
+    });
+    this.bluetooth.disconnect().then((yes) => {
+      console.log("Disconnected")
+    });
+  }
+
   public handleBluetooth(data: any) {
-    let pullupData: PullUpInt = JSON.parse(data);
+    let pullupData = JSON.parse(data);
     // console.log(pullupData);
-    switch (pullupData.type) {
+    switch (pullupData.Type) {
+      case 'Initial':
+        this.weightString = pullupData.Weight;
+      break;
       case 'Measurement':
         if (this.running) {
           console.log('Pull-up detected: ' + JSON.stringify(pullupData));
@@ -75,6 +83,7 @@ export class ExercisePage {
       default:
         console.log('False data: ');
         console.log(data);
+        break;
     }
     // console.log(JSON.stringify(data));
   }
@@ -129,7 +138,6 @@ export class ExercisePage {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
         this.timer();
-        this.checkPullUps();
       }
     }, 100);
   }
@@ -149,28 +157,6 @@ export class ExercisePage {
 
   //This is Dummydata code plis no judgy en delete when real data is hier
 
-
-  public checkPullUps() {
-    this.bluetooth.readUntil('}').then((success) => {
-      // if(this.running && success != '')
-      // this.count();
-
-      // console.log(success)
-      // console.log(JSON.parse(success));
-    }, (failed) => {
-      console.log("Failed to read bluetooth data");
-    });
-    /*
-    if (this.pullupArray.array[this.pullupArrayIterator].down == this.timeStamp / 10) {
-      this.count();
-      if (this.pullupArray.array.length) {
-        this.pullupArrayIterator++;
-      }
-
-    }
-    */
-  }
-
   SendToDatabase() {
     var PullupJson = {
       "UID": 2,
@@ -184,10 +170,14 @@ export class ExercisePage {
   }
 }
 
+export interface InitInt {
+  Type: string;
+  Weight: number;
+}
 export interface PullUpInt {
-  type: string;
-  start: number;
-  up: number;
+  Type: string;
+  Start: number;
+  Up: number;
 }
 
 export interface DummyData {
