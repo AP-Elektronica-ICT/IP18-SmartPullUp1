@@ -201,7 +201,6 @@ export class ExercisePage {
     }, (err) => {
       console.log(err);
     });
-    //this.api.insertPullupSession('google-oauth2|116967247859714699456', 15, 23142142, 20, 3, 111, 70, 20 );
     console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 }
