@@ -9,70 +9,74 @@
 
   <login *ngIf="!auth.isAuthenticated()"></login>
 
+  <div *ngIf="auth.isAuthenticated()">
 
-  <ion-card *ngIf="userData">
-    <ion-card-header>
-      <h2>Facebook login</h2>
-    </ion-card-header>
-    <ion-card-content>
-      <div>
-        <p>First name: {{userData.first_name}}</p>
-        <p>Username: {{userData.username}}</p>
-        <p>Email: {{userData.email}}</p>
-        <p>Total friends: {{userData.friends.summary.total_count}}</p>
-        <ion-list>
-          <ion-item *ngFor="let friend of userData.friends.data">{{friend}}</ion-item>
-        </ion-list>
-        <span *ngIf="userData.friends.data == ''">You have no connected friends</span>
-      </div>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card *ngIf="FacebookConnected">
-    <ion-card-header>
-      <h2>Leaderboards</h2>
-    </ion-card-header>
-    <ion-card-content>
-      <div class="leaderboards">
-        <ion-list>
-          <ion-item>
-            <p item-start>#1 Ruben Nemes</p>
-            <span item-end>34 Pull-ups</span>
-          </ion-item>
-          <ion-item>
-            <p item-start>#2 Kasper van Rotterdam</p>
-            <span item-end>27 Pull-ups</span>
-          </ion-item>
-          <ion-item>
-            <p item-start>#3 Melvin Bootsgezel</p>
-            <span item-end>14 Pull-ups</span>
-          </ion-item>
-          <ion-item>
-            <p item-start>#4 Antii Nevakivi</p>
-            <span item-end>13 Pull-ups</span>
-          </ion-item>
-          <ion-item>
-            <p item-start>#5 Joonas Mattila</p>
-            <span item-end>12 Pull-ups</span>
-          </ion-item>
-          <ion-item>
-            <p item-start>#6 Tuomas Isoniemi</p>
-            <span item-end>7 Pull-ups</span>
-          </ion-item>
-        </ion-list>
-      </div>
-    </ion-card-content>
-  </ion-card>
 
-  <div class="login-logout-container" *ngIf="auth.isAuthenticated()">
+    <ion-card *ngIf="userData">
+      <ion-card-header>
+        <h2>Facebook login</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <div>
+          <p>First name: {{userData.first_name}}</p>
+          <p>Username: {{userData.username}}</p>
+          <p>Email: {{userData.email}}</p>
+          <p>Total friends: {{userData.friends.summary.total_count}}</p>
+          <ion-list>
+            <ion-item *ngFor="let friend of userData.friends.data">{{friend}}</ion-item>
+          </ion-list>
+          <span *ngIf="userData.friends.data == ''">You have no connected friends</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-    <span *ngIf="!FacebookConnected">
-      <a>In order to see the leaderboards, you must login with Facebook</a>
-      <button ion-button block color="prettyblue" (click)="loginFacebook()">Connect</button>
-    </span>
-    <span *ngIf="FacebookConnected">
-      <button ion-button block color="danger" (click)="logoutFacebook()">Disconnect</button>
-    </span>
+    <ion-card *ngIf="FacebookConnected">
+      <ion-card-header>
+        <h2>Leaderboards</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="leaderboards">
+          <ion-list>
+            <ion-item>
+              <p item-start>#1 Ruben Nemes</p>
+              <span item-end>34 Pull-ups</span>
+            </ion-item>
+            <ion-item>
+              <p item-start>#2 Kasper van Rotterdam</p>
+              <span item-end>27 Pull-ups</span>
+            </ion-item>
+            <ion-item>
+              <p item-start>#3 Melvin Bootsgezel</p>
+              <span item-end>14 Pull-ups</span>
+            </ion-item>
+            <ion-item>
+              <p item-start>#4 Antii Nevakivi</p>
+              <span item-end>13 Pull-ups</span>
+            </ion-item>
+            <ion-item>
+              <p item-start>#5 Joonas Mattila</p>
+              <span item-end>12 Pull-ups</span>
+            </ion-item>
+            <ion-item>
+              <p item-start>#6 Tuomas Isoniemi</p>
+              <span item-end>7 Pull-ups</span>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
+    <div class="login-logout-container" *ngIf="auth.isAuthenticated()">
+
+      <span *ngIf="!FacebookConnected">
+        <a>In order to see the leaderboards, you must login with Facebook</a>
+        <button ion-button block color="prettyblue" (click)="loginFacebook()">Connect</button>
+      </span>
+      <span *ngIf="FacebookConnected">
+        <button ion-button block color="danger" (click)="logoutFacebook()">Disconnect</button>
+      </span>
+
+    </div>
   </div>
 </ion-content>

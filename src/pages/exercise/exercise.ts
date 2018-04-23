@@ -180,17 +180,20 @@ export class ExercisePage {
     */
   }
 
-  SendToDatabase() {
-    var PullupJson = {
-      "UID": 2,
-      "Pullups": this.pullUpCounter,
-      "Time": this.timeStamp,
-      "Date": Date.now()
-    };
-
-    console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
-
-  }
+  SendToDatabase() { 
+    console.log("Date now: "+Date.now() + " AvgSpeed = " + this.avgSpeedMs+ "  "+this.percent + " "+this.timeStamp);
+    
+    let data = {
+      userid : "google-oauth2|116967247859714699456",
+      timestamp : Date.now(),
+      amount : this.pullUpCounter,
+      duration : this.timeStamp,
+      avgspeed : parseInt(this.avgSpeedMs),
+      weight : 111,
+      completion : this.percent,
+      goal : this.goal
+    }
+console.log(data)
     this.api.insertPullupSession(data).then((result) => {
       console.log(result);
     }, (err) => {

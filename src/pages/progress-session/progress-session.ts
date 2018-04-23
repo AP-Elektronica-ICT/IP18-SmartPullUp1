@@ -19,8 +19,8 @@ export class ProgressSessionPage {
   @ViewChild('lineCanvas') lineCanvas;
 
   sessionId = 0;
-  sessionDate;
-  lineChart:any;
+  sessionDate: any;
+  lineChart: any;
   
   chartLabels= [];
 
@@ -47,7 +47,7 @@ export class ProgressSessionPage {
           labels: [],
           datasets: [
               {
-                  label: "My First dataset",
+                  label: "Progression",
                   fill: false,
                   lineTension: 0.2,
                   backgroundColor: "rgba(52,74,247,0.5)",

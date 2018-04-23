@@ -8,7 +8,7 @@
 <ion-list *ngIf="user">
 
   <button ion-item *ngFor="let item of user.pullups" (click)="listClicked(item)">
-    {{ item.timestamp | date:'fullDate'}}
+    {{ item.timestamp | date:'medium'}}
   </button>  
 </ion-list>
 </ion-content>
