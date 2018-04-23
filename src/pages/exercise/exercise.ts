@@ -35,7 +35,7 @@ export class ExercisePage {
 
   private NOBLUETOOTH = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController, private api: ApiService, private auth: AuthenticationService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController, private api: ApiService) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
   }
