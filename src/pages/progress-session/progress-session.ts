@@ -18,18 +18,25 @@ export class ProgressSessionPage {
   
   @ViewChild('lineCanvas') lineCanvas;
 
-  SessionId = 0;
-  SessionDate;
+  sessionId = 0;
+  sessionDate;
   lineChart:any;
+  
+  chartLabels= [];
+
+  first = "Monday";
+  second = "Tuesday";
+  third = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
 
-    this.SessionId = navParams.get("ClickedSession");
+    this.sessionId = navParams.get("ClickedSession");
     console.log(navParams.data)
-    this.SessionDate = new Date((this.SessionId * 1000)).toDateString();
-    console.log(this.SessionDate);
-
+    this.sessionDate = new Date((this.sessionId * 1000)).toDateString();
+    console.log(this.sessionDate);
+    this.third = new Date((this.sessionId * 1000)).toDateString()
+    
 
   }
 
@@ -39,7 +46,7 @@ export class ProgressSessionPage {
  
       type: 'line',
       data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: [],
           datasets: [
               {
                   label: "My First dataset",
@@ -67,6 +74,15 @@ export class ProgressSessionPage {
       }
 
   });
+  this.SetupChart();
+  }
+
+
+  public SetupChart(){
+    this.chartLabels = [this.first, this.second, this.third]
+      this.lineChart.labels = this.chartLabels;
+
+
   }
 
 }

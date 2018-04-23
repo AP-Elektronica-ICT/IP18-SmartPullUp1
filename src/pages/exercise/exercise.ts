@@ -25,7 +25,7 @@ export class ExercisePage {
   private timeStampString = "0";
   private buttState = "Start";
   private running = false;
-  private avgSpeed:any;
+  private avgSpeed:any = 0;
 
   private title = this.pullUpCounter + "/" + this.goal;
   private pullupArrayIterator = 0;
@@ -76,7 +76,6 @@ export class ExercisePage {
     this.pullUpCounter++;
     this.title = this.pullUpCounter + "/" + this.goal;
     this.percent = this.pullUpCounter / this.goal * 100;
-    this.avgSpeed = String((this.timeStamp / this.pullUpCounter/ 10).toFixed(1));
     console.log(this.avgSpeed);
     if (this.percent >= 100) {
       this.running = false;
@@ -118,6 +117,7 @@ export class ExercisePage {
       if (this.running) {
         this.timeStamp = (this.timeStamp + 1);
         this.timeStampString = (this.timeStamp / 10).toFixed(1);
+        this.avgSpeed = String((this.timeStamp / this.pullUpCounter/ 10).toFixed(1));
         this.timer();
         this.checkPullUps();
       }
