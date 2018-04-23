@@ -5,9 +5,10 @@
 
 <ion-content padding>
 
-<ion-list>
-  <button ion-item *ngFor="let item of items" (click)="listClicked(item)">
-    {{ item }}
+<ion-list *ngIf="user">
+
+  <button ion-item *ngFor="let item of user.pullups" (click)="listClicked(item)">
+    {{ item.timestamp | date:'fullDate'}}
   </button>  
 </ion-list>
 </ion-content>

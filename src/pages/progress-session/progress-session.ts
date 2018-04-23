@@ -24,18 +24,16 @@ export class ProgressSessionPage {
   
   chartLabels= [];
 
-  first = "Monday";
-  second = "Tuesday";
-  third = "";
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
 
     this.sessionId = navParams.get("ClickedSession");
-    console.log(navParams.data)
+    console.log("in Session")
+    console.log(navParams.data.ClickedSession.amount)
     this.sessionDate = new Date((this.sessionId * 1000)).toDateString();
     console.log(this.sessionDate);
-    this.third = new Date((this.sessionId * 1000)).toDateString()
     
 
   }
@@ -67,7 +65,7 @@ export class ProgressSessionPage {
                   pointHoverBorderWidth: 2,
                   pointRadius: 1,
                   pointHitRadius: 10,
-                  data: [65, 59, 80, 81, 56, 55, 40,34,54,45,65],
+                  data: [18, 19, 20, 19, 17, 15, 20,21,19,20,24],
                   spanGaps: false,
               }
           ]
@@ -79,7 +77,7 @@ export class ProgressSessionPage {
 
 
   public SetupChart(){
-    this.chartLabels = [this.first, this.second, this.third]
+    this.chartLabels = []
       this.lineChart.labels = this.chartLabels;
 
 

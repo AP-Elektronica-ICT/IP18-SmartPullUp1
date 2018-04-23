@@ -19,6 +19,7 @@ import { ProgressSessionPage } from '../progress-session/progress-session';
 })
 export class ProgressPage {
   user: any;
+  i =0;
 
   items = ['test', 'test1','test2','test3','test4'];
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private api: ApiService, private modalController: ModalController) {
@@ -32,21 +33,19 @@ export class ProgressPage {
 
 
   public listClicked(item){
-    let modal = this.modalController.create(ProgressSessionPage,{ClickedSession:"1523972515"});
+    let modal = this.modalController.create(ProgressSessionPage,{ClickedSession: item});
     modal.present();
   }
 
 
   public loadProfile() {
-    if (this.auth.isAuthenticated()) {
-      let userId = this.auth.user.sub;
+    console.log("Works")
+    
+      let userId = "google-oauth2|116967247859714699456";
 
       this.api.getUserById(userId).then(data => {
         this.user = data;
-        
-        this.items.push("dis  " + this.user.name);
+        console.log(data);
       });
-      
-    }
   }
 }

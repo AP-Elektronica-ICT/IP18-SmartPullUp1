@@ -18,9 +18,11 @@
   <h2 class="title">the pull-ups session from: {{SessionDate}}</h2>
   <br>
   <br>
-  <p>Pull-ups: </p> 
-  <h1>you goal was 50 </h1>
-  <h2>at that time your weight was 68.5KG now it is 68KG</h2>
+  <p>Pull-ups: {{navParams.data.ClickedSession.amount}}</p>
+  <p>Goal: {{navParams.data.ClickedSession.goal}}</p>
+  <p>Percentage done: {{navParams.data.ClickedSession.percentage}}</p>
+  <p>Weight: {{navParams.data.ClickedSession.weight}}</p>
+  
 
   
         <canvas #lineCanvas></canvas>

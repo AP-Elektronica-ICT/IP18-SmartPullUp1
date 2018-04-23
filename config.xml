@@ -107,11 +107,11 @@
     <allow-navigation href="http://192.168.150.80:8100" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <allow-navigation href="http://172.16.155.25:8100" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="7.0.0" />
-    <engine name="browser" spec="5.0.3" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="207336980042134" />
         <variable name="APP_NAME" value="Smart Pull-Up Bar" />
     </plugin>
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="5.0.3" />
 </widget>

@@ -87,7 +87,7 @@ export class BluetoothConnectPage {
     }, (err) => {
       this.loader.dismiss();
       this.showDisconnected();
-      this.parent.setDisconnected();
+      // this.parent.setDisconnected();
       console.log("connecting to bluetooth device failed");
     });
 
