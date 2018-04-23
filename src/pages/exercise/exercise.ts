@@ -193,28 +193,13 @@ export class ExercisePage {
       completion : this.percent,
       goal : this.goal
     }
-console.log(data)
+    console.log(data)
     this.api.insertPullupSession(data).then((result) => {
       console.log(result);
     }, (err) => {
       console.log(err);
     });
-    console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
-  
-}
 
-export interface InitInt {
-  Type: string;
-  Weight: number;
-}
-export interface PullUpInt {
-  Type: string;
-  Start: number;
-  Up: number;
-}
 
-export interface DummyData {
-  array: PullUpInt[];
 }
-

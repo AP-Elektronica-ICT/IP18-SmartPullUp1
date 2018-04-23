@@ -30,6 +30,9 @@ export class ProgressPage {
     this.loadProfile();
   }
 
+  ionViewWillEnter() {
+    this.loadProfile();
+  }
 
 
   public listClicked(item){

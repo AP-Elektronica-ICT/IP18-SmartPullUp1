@@ -15,16 +15,16 @@ import { Chart } from 'chart.js';
   templateUrl: 'progress-session.html',
 })
 export class ProgressSessionPage {
-  
+
   @ViewChild('lineCanvas') lineCanvas;
 
   sessionId = 0;
   sessionDate: any;
   lineChart: any;
-  
-  chartLabels= [];
 
-  
+
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
@@ -34,53 +34,45 @@ export class ProgressSessionPage {
     console.log(navParams.data.ClickedSession.amount)
     this.sessionDate = new Date((this.sessionId * 1000)).toDateString();
     console.log(this.sessionDate);
-    
+
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProgressSessionPage');
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
- 
+
       type: 'line',
       data: {
-          labels: [],
-          datasets: [
-              {
-                  label: "Progression",
-                  fill: false,
-                  lineTension: 0.2,
-                  backgroundColor: "rgba(52,74,247,0.5)",
-                  borderColor: "rgba(52,74,247,0.5)",
-                  borderCapStyle: 'butt',
-                  borderDash: [],
-                  borderDashOffset: 0.0,
-                  borderJoinStyle: 'miter',
-                  pointBorderColor: "rgba(52,74,247,0.5)",
-                  pointBackgroundColor: "#fff",
-                  pointBorderWidth: 1,
-                  pointHoverRadius: 5,
-                  pointHoverBackgroundColor: "rgba(52,74,247,0.5)",
-                  pointHoverBorderColor: "rgba(52,74,247,0.5)",
-                  pointHoverBorderWidth: 2,
-                  pointRadius: 1,
-                  pointHitRadius: 10,
-                  data: [18, 19, 20, 19, 17, 15, 20,21,19,20,24],
-                  spanGaps: false,
-              }
-          ]
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+          {
+            label: "Pull-ups",
+            fill: false,
+            lineTension: 0.2,
+            backgroundColor: "rgba(52,74,247,0.5)",
+            borderColor: "rgba(52,74,247,0.5)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            chartLabels: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(52,74,247,0.5)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(52,74,247,0.5)",
+            pointHoverBorderColor: "rgba(52,74,247,0.5)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [18, 19, 20, 19, 17, 15, 20, 21, 19, 20, 24],
+            spanGaps: false,
+          }
+        ]
       }
-
-  });
-  this.SetupChart();
+    });
   }
-
-
-  public SetupChart(){
-    this.chartLabels = []
-      this.lineChart.labels = this.chartLabels;
-
-
-  }
-
 }
+
+
