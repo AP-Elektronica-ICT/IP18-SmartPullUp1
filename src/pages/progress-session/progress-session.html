@@ -15,13 +15,13 @@
 
 <ion-content padding>
 
-  <h2 class="title">the pull-ups session from: {{SessionDate}}</h2>
+  <h2 class="title">The pull-up session from: {{navParams.data.ClickedSession.timestamp | date:'fullDate'}}</h2>
   <br>
   <br>
   <p>Pull-ups: {{navParams.data.ClickedSession.amount}}</p>
   <p>Goal: {{navParams.data.ClickedSession.goal}}</p>
-  <p>Percentage done: {{navParams.data.ClickedSession.percentage}}</p>
-  <p>Weight: {{navParams.data.ClickedSession.weight}}</p>
+  <p>Percentage done: {{navParams.data.ClickedSession.completion}}%</p>
+  <p>Weight: {{navParams.data.ClickedSession.weight}}kg</p>
   
 
   
