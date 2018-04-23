@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AuthenticationService } from '../../services/AuthenticationService';
 import * as moment from 'moment';
+import { ApiService } from '../../services/ApiService';
 
 /**
  * Generated class for the SchedulePage page.
@@ -24,7 +25,7 @@ export class SchedulePage {
     mode: 'month',
     currentDate: this.selectedDay
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private modalCtrl: ModalController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private modalCtrl: ModalController, private alertCtrl: AlertController, private api: ApiService) {
   }
 
   ionViewDidLoad() {
@@ -42,6 +43,7 @@ export class SchedulePage {
         eventData.endTime = new Date(data.endTime);
  
         let events = this.eventSource;
+        this.saveEventToDb(data);
         events.push(eventData);
         this.eventSource = [];
         setTimeout(() => {
@@ -73,4 +75,19 @@ export class SchedulePage {
   onCurrentDateChanged(event){
   }
 
+  saveEventToDb(data) {
+    let datafetch = {
+      userid : this.auth.user.sub,
+      starttime : moment(data.startTime).unix,
+      endtime : moment(data.endTime).unix,
+      allday : data.allday,
+      title : data.title,
+    }
+
+    this.api.insertPullupSession(datafetch).then((result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
+  }
 }
