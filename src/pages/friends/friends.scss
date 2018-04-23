@@ -10,3 +10,13 @@ ion-spinner {
 ion-item {
       background-color: grey;
 }
+
+.login-logout-container span button {
+      bottom: 0;
+}
+
+.leaderboards ion-list ion-item span {
+      text-align: right;
+      right: 0;
+      font-size: 1.2rem !important;
+}

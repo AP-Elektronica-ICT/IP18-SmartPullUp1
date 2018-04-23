@@ -29,6 +29,7 @@ import { PopoverLoginComponent } from '../components/popover-login/popover-login
 import { BluetoothConnectPage } from '../pages/bluetooth-connect/bluetooth-connect';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { ProgressSessionPage } from '../pages/progress-session/progress-session';
+import { Facebook } from '@ionic-native/facebook';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { ProgressSessionPage } from '../pages/progress-session/progress-session'
     BLE,
     JsonService,
     ApiService,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
