@@ -35,7 +35,7 @@ export class ExercisePage {
 
   private NOBLUETOOTH = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController, private api: ApiService, private auth: AuthenticationService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private bluetooth: BluetoothSerial, private modCtrl: ModalController, private api: ApiService) {
     // this.pullupArray = this.json.getData()
     // this.goal = this.pullupArray.array.length;
   }
@@ -180,26 +180,23 @@ export class ExercisePage {
     */
   }
 
-  SendToDatabase() { 
-    console.log("Date now: "+Date.now() + " AvgSpeed = " + this.avgSpeedMs+ "  "+this.percent + " "+this.timeStamp);
-    
-    let data = {
-      userid : "google-oauth2|116967247859714699456",
-      timestamp : 1524471038,
-      amount : this.pullUpCounter,
-      duration : this.timeStamp,
-      avgspeed : parseInt(this.avgSpeedMs),
-      weight : 111,
-      completion : this.percent,
-      goal : this.goal
-    }
-console.log(data)
+  SendToDatabase() {
+    var PullupJson = {
+      "UID": 2,
+      "Pullups": this.pullUpCounter,
+      "Time": this.timeStamp,
+      "Date": Date.now()
+    };
+
+    console.log("Sending " + PullupJson.Date + " Pull-Ups To the Database........DONE!");
+
+  }
     this.api.insertPullupSession(data).then((result) => {
       console.log(result);
     }, (err) => {
       console.log(err);
     });
-    
+    console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
   
 }
