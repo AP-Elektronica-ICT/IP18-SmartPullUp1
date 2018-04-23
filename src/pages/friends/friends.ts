@@ -21,6 +21,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 export class FriendsPage {
 
   public FacebookConnected = false;
+  public userData: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private fb: Facebook) {
 
@@ -36,6 +37,7 @@ export class FriendsPage {
         this.FacebookConnected = false;
       } else {
         this.FacebookConnected = true;
+        this.getUserData();
       }
     }, (failed) => {
       console.log('connection failed');
@@ -43,11 +45,20 @@ export class FriendsPage {
   
   }
 
+  getUserData() {
+    this.fb.api('me?fields=id,name,first_name,email,friends', []).then(profile => {
+      this.userData = {first_name: profile['first_name'], username: profile['name'], email: profile['email'], friends: profile['friends']}
+      console.log(this.userData);
+    }, error => {
+      console.log("Failed! " + error);
+    });
+  }
+
   loginFacebook() {
     // console.log('Status: ' + this.fb.getLoginStatus());
     this.fb.login(['public_profile', 'user_friends', 'email'])
     .then((res: FacebookLoginResponse) => { 
-      console.log('Logged into Facebook!', res)
+        
       this.hasFacebookConnection();
       // console.log('Status: ' + this.fb.getLoginStatus());
     })
@@ -60,6 +71,7 @@ export class FriendsPage {
   logoutFacebook() {
     this.fb.logout().then((success) => {
       this.FacebookConnected = false;
+      this.userData = "";
       console.log("Successfully logged out");
     }, (failed) => {
       console.log("Failed to log out")
