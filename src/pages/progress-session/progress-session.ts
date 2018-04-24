@@ -19,8 +19,8 @@ export class ProgressSessionPage {
   @ViewChild('lineCanvas') lineCanvas;
 
   sessionId = 0;
-  sessionDate: any;
-  lineChart: any;
+  sessionDate;
+  lineChart:any;
   
   chartLabels= [];
 
@@ -33,7 +33,8 @@ export class ProgressSessionPage {
 
     this.sessionId = navParams.get("ClickedSession");
     console.log("in Session")
-    console.log(navParams.data.ClickedSession.amount)
+    console.log(navParams.data.ClickedSession.amount);
+    console.log(navParams.data.userData);
     this.sessionDate = new Date((this.sessionId * 1000)).toDateString();
     console.log(this.sessionDate);
 
