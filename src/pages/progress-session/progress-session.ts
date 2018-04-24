@@ -23,6 +23,10 @@ export class ProgressSessionPage {
   lineChart:any;
   
   chartLabels= [];
+  pullupsamount=[];
+  charLabelsReverse =[];
+  date; 
+
 
 
 
@@ -34,10 +38,18 @@ export class ProgressSessionPage {
     this.sessionId = navParams.get("ClickedSession");
     console.log("in Session")
     console.log(navParams.data.ClickedSession.amount);
-    console.log(navParams.data.userData);
+    navParams.data.userData.pullups.forEach(element => {
+      if(element.amount){
+      this.pullupsamount.push(element.amount);
+      this.date = new Date(element.timestamp * 1000).toDateString();
+      this.date = (this.date + "").substring(0,10);
+      this.chartLabels.push(this.date)
+      }      
+    });
+    console.log(this.chartLabels.reverse);
+
     this.sessionDate = new Date((this.sessionId * 1000)).toDateString();
     console.log(this.sessionDate);
-
 
   }
 
@@ -47,7 +59,7 @@ export class ProgressSessionPage {
 
       type: 'line',
       data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: this.chartLabels,
         datasets: [
           {
             label: "Pull-ups",
@@ -69,7 +81,7 @@ export class ProgressSessionPage {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [18, 19, 20, 19, 17, 15, 20, 21, 19, 20, 24],
+            data: this.pullupsamount,
             spanGaps: false,
           }
         ]

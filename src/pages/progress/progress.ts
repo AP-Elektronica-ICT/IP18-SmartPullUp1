@@ -21,6 +21,7 @@ export class ProgressPage {
   user: any;
   i =0;
 
+
   items = ['test', 'test1','test2','test3','test4'];
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthenticationService, private api: ApiService, private modalController: ModalController) {
   }
@@ -29,14 +30,15 @@ export class ProgressPage {
     console.log('ionViewDidLoad ProgressPage');
     this.loadProfile();
   }
-
-  ionViewWillEnter() {
+  ionViewDidEnter(){
     this.loadProfile();
+
   }
 
 
+
   public listClicked(item){
-    let modal = this.modalController.create(ProgressSessionPage,{ClickedSession: item});
+    let modal = this.modalController.create(ProgressSessionPage,{ClickedSession: item, userData: this.user});
     modal.present();
   }
 
@@ -48,7 +50,7 @@ export class ProgressPage {
 
       this.api.getUserById(userId).then(data => {
         this.user = data;
-        console.log(data);
+        console.log(this.user);
       });
   }
 }
