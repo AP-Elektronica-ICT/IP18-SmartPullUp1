@@ -1,18 +1,12 @@
 <?php
-$app->post('/pullups', function($request, $response, $args){
+$app->post('/events', function($request, $response, $args){
     $collection = (new MongoDB\Client)->smartpullupbar->users;
     $allVars = $request->getParsedBody();
-    $pullupS = array('$addToSet' => array( 'pullups' => [ 
-        "timestamp" => (int)$allVars['timestamp'],
-        "amount" => (int)$allVars['amount'],
-        "duration" => (int)$allVars['duration'],
-        "avgspeed" => (int)$allVars['avgspeed'],
-        "weight" => (int)$allVars['weight'],
-        "completion" => (int)$allVars['completion'],
-        "goal" => (int)$allVars['goal']
+    $pullupS = array('$addToSet' => array( 'events' => [ 
+        "title" => $allVars['title'],
+        "starttime" => (int)$allVars['starttime'],
+        "endtime" => (int)$allVars['endtime']
         ]));
-    var_dump($allVars);
-    var_dump($pullupS);
     try {
         $collection->updateOne(array("userid" => $allVars['userid']), $pullupS);
         echo "data is verstuurd";

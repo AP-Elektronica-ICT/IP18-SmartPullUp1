@@ -39,7 +39,6 @@ export class ProfilePage {
       this.api.getUserById(userId).then(data => {
         this.user = data;
       });
-      
     }
     console.log('ionViewDidLoad ProfilePage');
   }

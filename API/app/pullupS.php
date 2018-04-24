@@ -11,8 +11,6 @@ $app->post('/pullups', function($request, $response, $args){
         "completion" => (int)$allVars['completion'],
         "goal" => (int)$allVars['goal']
         ]));
-    var_dump($allVars);
-    var_dump($pullupS);
     try {
         $collection->updateOne(array("userid" => $allVars['userid']), $pullupS);
         echo "data is verstuurd";
