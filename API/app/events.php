@@ -5,8 +5,7 @@ $app->post('/events', function($request, $response, $args){
     $pullupS = array('$addToSet' => array( 'events' => [ 
         "title" => $allVars['title'],
         "starttime" => (int)$allVars['starttime'],
-        "endtime" => (int)$allVars['endtime'],
-        "allday" => $allVars['allday']
+        "endtime" => (int)$allVars['endtime']
         ]));
     try {
         $collection->updateOne(array("userid" => $allVars['userid']), $pullupS);

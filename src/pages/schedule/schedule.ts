@@ -29,6 +29,7 @@ export class SchedulePage {
   }
 
   ionViewDidLoad() {
+    this.loadEvents();
     console.log('ionViewDidLoad SchedulePage');
   }
 
@@ -48,7 +49,9 @@ export class SchedulePage {
         this.eventSource = [];
         setTimeout(() => {
           this.eventSource = events;
+          console.log(this.eventSource);
         });
+        
       }
     });
   }
@@ -78,16 +81,40 @@ export class SchedulePage {
   saveEventToDb(data) {
     let datafetch = {
       userid : this.auth.user.sub,
-      starttime : moment(data.startTime).unix,
-      endtime : moment(data.endTime).unix,
-      allday : data.allday,
+      starttime : moment(data.startTime).unix(),
+      endtime : moment(data.endTime).unix(),
       title : data.title,
     }
-
-    this.api.insertPullupSession(datafetch).then((result) => {
+    this.api.insertEvent(datafetch).then((result) => {
       console.log(result);
     }, (err) => {
       console.log(err);
     });
+  }
+
+  loadEvents() {
+    if (this.auth.isAuthenticated()) {
+      let userId = this.auth.user.sub;
+
+      this.api.getUserById(userId).then(data => {
+        let eventData;
+        let events = this.eventSource;
+        for (let item of data.events){
+            eventData = {
+              allDay : false,
+              endTime : new Date(item.endtime*1000),
+              startTime : new Date(item.starttime*1000),
+              title : item.title,
+            };
+            events.push(eventData);
+        }
+        this.eventSource = [];
+        setTimeout(() => {
+          this.eventSource = events;
+        });
+        
+      });
+    }
+    console.log('ionViewDidLoad ProfilePage');
   }
 }
