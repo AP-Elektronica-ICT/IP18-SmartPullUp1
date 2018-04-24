@@ -199,6 +199,7 @@ export class ExercisePage {
     }, (err) => {
       console.log(err);
     });
+    // console.log("Sending " + totalPullUps + " Pull-Ups To the Database........DONE!");
   }
 
 

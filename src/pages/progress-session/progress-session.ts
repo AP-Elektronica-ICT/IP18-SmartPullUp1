@@ -21,6 +21,8 @@ export class ProgressSessionPage {
   sessionId = 0;
   sessionDate: any;
   lineChart: any;
+  
+  chartLabels= [];
 
 
 
