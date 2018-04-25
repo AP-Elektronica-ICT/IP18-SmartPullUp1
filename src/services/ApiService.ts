@@ -15,19 +15,6 @@ export class ApiService {
         });
     }
 
-    public updateUserById(){
-      let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-
-      return new Promise((resolve, reject) => {
-          this._http.post('http://ec2-54-77-199-101.eu-west-1.compute.amazonaws.com/updateuser', JSON.stringify(data),options)
-            .subscribe(res => {
-              resolve(res);
-            }, (err) => {
-              reject(err);
-            });
-        });      
-    }
-
     public insertPullupSession(data){
         let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
