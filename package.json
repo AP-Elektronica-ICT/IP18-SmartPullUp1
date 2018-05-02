@@ -51,7 +51,6 @@
     "ionic-angular": "3.9.2",
     "ionic2-calendar": "^0.4.3",
     "ionicons": "3.0.0",
-    "ios-deploy": "^1.9.2",
     "moment": "^2.22.0",
     "ng-circle-progress": "^0.9.9",
     "rxjs": "5.5.2",
@@ -94,9 +93,9 @@
       }
     },
     "platforms": [
-      "ios",
       "android",
-      "browser"
+      "browser",
+      "ios"
     ]
   },
   "main": "index.js",

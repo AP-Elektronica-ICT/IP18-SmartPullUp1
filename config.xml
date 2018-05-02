@@ -111,7 +111,7 @@
         <variable name="APP_ID" value="207336980042134" />
         <variable name="APP_NAME" value="Smart Pull-Up Bar" />
     </plugin>
-    <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
     <engine name="browser" spec="5.0.3" />
+    <engine name="ios" spec="4.5.4" />
 </widget>

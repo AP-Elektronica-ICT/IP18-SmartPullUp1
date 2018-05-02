@@ -99,7 +99,7 @@ export class SchedulePage {
       this.api.getUserById(userId).then(data => {
         let eventData;
         let events = this.eventSource;
-        for (let item of data.events){
+        for (let item of events){
             eventData = {
               allDay : false,
               endTime : new Date(item.endtime*1000),
